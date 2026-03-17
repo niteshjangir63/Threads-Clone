@@ -56,3 +56,7 @@
 .post-bottom-button:hover {
     scale: 1.1;
 }
+
+hr{
+    color: white;
+}
