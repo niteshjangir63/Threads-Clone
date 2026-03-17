@@ -15,6 +15,9 @@ export default function Post(){
                     <span className="ms-2">
                         Username
                     </span>
+                    <span className="ms-2">
+                        Follow
+                    </span>
 
                     <span className="ms-auto">
                         <i class="fa-solid fa-ellipsis"></i>
