@@ -1,20 +1,20 @@
 import "./PostContainer.css"
 import Post from "../post/Post"
-export default function PostContainer(){
+export default function PostContainer() {
 
-    return(
+    return (
 
         <>
-        
-        <div className="container postContainer mt-5 p-3">
+
+            <div className="container postContainer mt-5 p-3">
 
 
-<Post/>
-<Post/>
+                <Post />
+                <Post />
 
 
 
-        </div>
+            </div>
 
         </>
     )
