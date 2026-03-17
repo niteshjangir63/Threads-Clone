@@ -6,10 +6,12 @@ export default function PostContainer(){
 
         <>
         
-        <div className="container postContainer mt-5 p-5">
+        <div className="container postContainer mt-5 p-3">
 
 
 <Post/>
+<Post/>
+
 
 
         </div>

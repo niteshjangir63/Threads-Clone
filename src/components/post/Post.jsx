@@ -21,6 +21,7 @@ export default function Post(){
                     </span>
 
                 </div>
+                
                 <div className="mb-3">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam possimus fugit aperiam reprehenderit dolorum! Dolores ipsum fugiat saepe nostrum dolor culpa doloribus quos deleniti mollitia facere. Ex quaerat atque in?
                 </div>
@@ -41,6 +42,7 @@ export default function Post(){
 
 
         </div>
+        <hr />
 
         </>
     )
