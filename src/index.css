@@ -9,6 +9,7 @@ body {
   font-family: system-ui, sans-serif;
  background-color: #0A0A0A;
   color: #111;
+  text-align: center;
 }
 
 #root {
