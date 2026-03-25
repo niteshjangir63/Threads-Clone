@@ -1,10 +1,11 @@
+import Input from "../components/inputBox/Input"
 export default function Search(){
 
     return (
 
         <>
 
-<h1>Search</h1>
+        <Input/>
 
         </>
     )

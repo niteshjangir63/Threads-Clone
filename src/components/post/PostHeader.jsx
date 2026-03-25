@@ -1,41 +1,43 @@
-import { useState } from "react"
+import { useState } from "react";
 import "./Post.css";
-import SkeletonText from "../skeleton/SkeletonText";
 import Skeleton from "../skeleton/Skeleton";
-export default function PostHeader(){
-const [loader, setLoader] = useState(false);
-    return (
 
-        <>
-        
-         <div className="d-flex flex-row">
-                    <span className="ml-auto mb-3 post-profile ">
-                        {!loader && <Skeleton />}
-                        <img src="https://img.freepik.com/premium-photo/nature-wallpaper-beautiful-nature-wallpaper-4k-nature-wallpapers-hd-nature-wallpaper-green-nature_722194-175.jpg?w=1380" alt="profile" onLoad={() => setLoader(true)} style={{
-                            display: loader ? "flex" : "none", opacity: loader ? 1 : 0,
-                            transition: "opacity 0.4s ease"
-                        }} />
-                    </span>
+export default function PostHeader() {
+  const [loader, setLoader] = useState(false);
 
-                    <p className="ms-2 placeholder-glow col-3">
+  return (
+    <div className="d-flex flex-row align-items-center">
 
-                        {<span class="placeholder col-12"></span> || <p>Username</p>}
+      <span className="post-profile">
+        {!loader && <Skeleton />}
 
-                    </p>
-                    <p className="ms-2 placeholder-glow col-3">
+        <img
+          src="https://img.freepik.com/premium-photo/nature-wallpaper-beautiful-nature-wallpaper-4k-nature-wallpapers-hd-nature-wallpaper-green-nature_722194-175.jpg?w=1380"
+          alt="profile"
+          onLoad={() => setLoader(true)}
+          style={{
+            display: loader ? "block" : "none",
+            opacity: loader ? 1 : 0,
+            transition: "opacity 0.4s ease"
+          }}
+        />
+      </span>
 
-                        {<SkeletonText /> || <p>follow</p>}
+     
+      <p className="ms-2 mb-0">
+        Username
+      </p>
 
-                    </p>
+      
+      <p className="ms-2 mb-0">
+        Follow
+      </p>
 
+      
+      <span className="ms-auto">
+        <i className="fa-solid fa-ellipsis"></i>
+      </span>
 
-                    <span className="ms-auto placeholder-glow col-3">
-                        {<span class="placeholder col-12"></span> || <i class="fa-solid fa-ellipsis"></i>}
-
-                    </span>
-
-                </div>
-
-        </>
-    )
+    </div>
+  );
 }

@@ -1,0 +1,8 @@
+.Search-bar::placeholder{
+    color: white;
+}
+
+.Search-bar> input{
+    border: none;
+    outline: none;
+}

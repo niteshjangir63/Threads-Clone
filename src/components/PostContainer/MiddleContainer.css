@@ -1,4 +1,4 @@
-.postContainer{
+.middleContainer{
 
   position: sticky;
     top: 40px;
@@ -7,10 +7,13 @@
     width: 90%;
     max-width: 650px;
     min-width: 320px;
-    border-top-left-radius: 3rem;
-    border-top-right-radius:3rem ;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius:1.5rem ;
     background-color: #1E1E1E;
     overflow-y: scroll;
-    margin-bottom: 50px;
+}
+
+.middleContainer::-webkit-scrollbar{
+  display: none;
 }
 

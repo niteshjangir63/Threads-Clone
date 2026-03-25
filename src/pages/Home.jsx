@@ -1,11 +1,12 @@
-import PostContainer from "../components/PostContainer/PostContainer";
-
+import MiddleContainer from "../components/PostContainer/MiddleContainer";
+import Post from "../components/post/Post";
 export default function Home(){
 
     return (
 
         <>
-        <PostContainer/>
+       <Post/>
+       <Post/>
         </>
     )
 

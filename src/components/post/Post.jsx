@@ -5,7 +5,7 @@ import SkeletonText from "../skeleton/SkeletonText";
 import PostActions from "./PostActions";
 import PostFeed from "./PostFeed";
 import PostHeader from "./PostHeader";
-export default function Post() {
+export default function Post({content}) {
 
     const [loader, setLoader] = useState(false);
 
@@ -16,11 +16,11 @@ export default function Post() {
             <div className="container post-box p-3">
 
 
-               <PostHeader/>
+               <PostHeader />
 
                 
 
-                    <PostFeed/>
+                    <PostFeed postInfo={content} />
 
                     <PostActions/>
                

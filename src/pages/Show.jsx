@@ -1,4 +1,4 @@
-import "../components/PostContainer/PostContainer.css"
+import "../components/PostContainer/MiddleContainer.css"
 export default function Show() {
 
     return (

@@ -1,29 +1,35 @@
 import Skeleton from "../skeleton/Skeleton"
 import "./Post.css"
 import { useState } from "react";
-export default function PostFeed(){
-    
+export default function PostFeed({ postInfo }) {
+
     const [loader, setLoader] = useState(false);
+
+    console.log("Post info = ", postInfo)
 
     return (
 
         <>
-        
-        <div className="mb-3 placeholder-glow">
-                            <span class="placeholder col-6"></span>
-                            <span class="placeholder col-6"></span>
-                            <span class="placeholder col-6"></span>
-                            <span class="placeholder col-3"></span>
-                        </div>
+            <p className="text-start mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam, ipsam! Officia animi libero dolorum esse quasi, earum sit. Itaque at quae pariatur sint labore alias facere nemo ipsam provident porro.</p>
 
-        <div className="col-6 post">
-                            {!loader && <Skeleton />}
-        
-                            <img src="https://plus.unsplash.com/premium_photo-1669295395788-2c22b1431f24?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="image" onLoad={() => setLoader(true)} style={{
-                                opacity: loader ? 1 : 0,
-                                transition: "opacity 0.4s ease"
-                            }} />
-                        </div>
+            {/* { <div className="mb-3 placeholder-glow">
+
+            
+                {<span class="placeholder col-6"></span>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-3"></span>}
+
+            </div>} */}
+
+            <div className="col-6 post">
+                {!loader && <Skeleton />}
+
+                <img src="https://images.pexels.com/photos/36135026/pexels-photo-36135026.jpeg" alt="image" onLoad={() => setLoader(true)} style={{
+                    opacity: loader ? 1 : 0,
+                    transition: "opacity 0.4s ease"
+                }} />
+            </div>
 
         </>
     )

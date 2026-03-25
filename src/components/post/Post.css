@@ -18,6 +18,7 @@
 
 .post img {
     height: 400px;
+    width: inherit;
 }
 
 .post-profile {
