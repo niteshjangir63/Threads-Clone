@@ -15,10 +15,23 @@ export default function ProfileInfo() {
 
                         <i class="fa-brands fa-instagram"></i>
                     </span>
-                    <span>
 
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </span>
+                    <div className="dropdown ms-auto">
+                        <button
+                            className="btn text-light border-0"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <i className="fa-solid fa-ellipsis"></i>
+                        </button>
+
+                        <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                           
+                                <button className="dropdown-item">Copy <i class="fa-solid fa-link ms-auto"></i></button>
+                            
+                        </ul>
+                    </div>
 
 
                 </div>
