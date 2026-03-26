@@ -4,6 +4,12 @@ import Skeleton from "../skeleton/Skeleton";
 
 export default function PostHeader() {
   const [loader, setLoader] = useState(false);
+  const [visible, setVisible] = useState(false);
+  function handleDropdown() {
+
+    !!setVisible();
+
+  }
 
   return (
     <div className="d-flex flex-row align-items-center">
@@ -23,20 +29,46 @@ export default function PostHeader() {
         />
       </span>
 
-     
+
       <p className="ms-2 mb-0">
         Username
       </p>
 
-      
+
       <p className="ms-2 mb-0">
         Follow
       </p>
 
-      
-      <span className="ms-auto">
-        <i className="fa-solid fa-ellipsis"></i>
-      </span>
+
+      <div className="dropdown ms-auto">
+  <button
+    className="btn text-light border-0"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <i className="fa-solid fa-ellipsis"></i>
+  </button>
+
+  <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+    <li>
+      <button className="dropdown-item">Edit</button>
+    </li>
+    <li>
+      <button className="dropdown-item">Share</button>
+    </li>
+    <li>
+      <button className="dropdown-item">Report</button>
+    </li>
+    <li>
+      <hr className="dropdown-divider" />
+    </li>
+    <li>
+      <button className="dropdown-item text-danger">Delete</button>
+    </li>
+  </ul>
+</div>
+
 
     </div>
   );
