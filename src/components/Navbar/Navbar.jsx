@@ -1,9 +1,13 @@
+import { useState } from "react"
 import "./Navbar.css"
 import { Link } from "react-router-dom"
-export default function Navbar(){
+export default function Navbar({handleClick}){
     let icons = [<i class="fa-solid fa-house"></i>,<i class="fa-solid fa-magnifying-glass"></i>,<i class="fa-solid fa-plus"></i>,<i class="fa-regular fa-heart"></i>,<i class="fa-solid fa-circle-user"></i>]
     let links = ["/","/search",""]
+    
     return (
+
+
 
         <>
         <div className="container Nav-bar ">
@@ -15,7 +19,7 @@ export default function Navbar(){
                     <ul className="row text-center p-4 links nav-links-middle" >
                         <Link className="link p-3" to={"/"}>{icons[0]}</Link>
                         <Link className="link p-3" to={"/search"}>{icons[1]}</Link>
-                        <Link className="link p-3">{icons[2]}</Link>
+                        <Link className="link p-3" onClick={handleClick}>{icons[2]}</Link>
                         <Link className="link p-3" to={"/notification"}>{icons[3]}</Link>
                         <Link className="link p-3" to={"/profile"}>{icons[4]}</Link>
                         
