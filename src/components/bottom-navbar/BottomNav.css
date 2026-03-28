@@ -22,7 +22,7 @@
     width: 100%;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 700px) {
     .bottom-navbar {
         display: none;
     }
