@@ -2,17 +2,28 @@
     /* border: solid 1px rgba(135, 134, 134, 0.295); */
     color: white;
     margin-bottom: auto;
-
+    
+    
 }
 
-.post {
 
-    border: solid 1px rgba(135, 134, 134, 0.295);
-    min-height: 400px;
+.post {
+    
+    border: solid 1px rgba(135, 134, 134, 0.295);   
     border-radius: 1rem;
     overflow: hidden;
     width: 250px;
-
+    animation: skew .3s linear forwards;
+    transition: ease .2s;
+    height: 0px;
+    
+    
+}
+@keyframes skew {
+    
+    100%{
+        height: 400px;
+    }
 
 }
 
@@ -60,4 +71,11 @@
 
 hr{
     color: white;
+}
+
+.dropdown-menu{
+
+    border: solid 1px rgba(135, 134, 134, 0.295);
+ backdrop-filter: blur(20px);
+    background-color: #1e1e1e89;
 }
