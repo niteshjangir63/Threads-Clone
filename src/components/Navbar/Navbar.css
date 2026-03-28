@@ -60,7 +60,7 @@
     background-color:rgba(128, 128, 128, 0.231);
 }
 
-@media (max-width:1000px) {
+@media (max-width:700px) {
     
     .Nav-bar{
         display: none;

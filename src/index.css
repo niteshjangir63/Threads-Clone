@@ -12,6 +12,14 @@ body {
   text-align: center;
 }
 
+
 #root {
   min-height: 100vh;
+}
+
+@media (max-width:700px) {
+  
+  body{
+    background-color: #1e1e1e;
+  }
 }
