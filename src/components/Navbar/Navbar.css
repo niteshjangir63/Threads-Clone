@@ -36,28 +36,29 @@
     
 }
 .link{
-
     margin: 5px 0 5px 0;
 }
 
 
 .link > i{
 
+    
     font-size: 1.4rem;
     color: grey;
 }
 .link:hover{
 
-   background-color:rgba(128, 128, 128, 0.231);
-    border-radius: 1rem;
+   background-color:#FFFFFF14;
+    border-radius: .5rem;
 }
 
 .link:nth-child(3){
     
     
     margin: 10px 0 10px 0;
-    border-radius: 1rem;
-    background-color:rgba(128, 128, 128, 0.231);
+    border-radius: .5rem;
+    background-color:#FFFFFF14;
+
 }
 
 @media (max-width:700px) {
