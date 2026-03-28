@@ -25,7 +25,7 @@ function App() {
     <>
       <Navbar handleClick={handleCreate}/>
       <Routing/>
-      <BottomNav />
+      <BottomNav handleClick={handleCreate}/>
       {
         display && <Create handleClick={handleCreate}/>
       }
