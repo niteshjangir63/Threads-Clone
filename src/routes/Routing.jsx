@@ -17,7 +17,7 @@ export default function Routing(){
         <Route path='/' element={<Home />} />
         <Route path='/search' element={<Search />} />
         <Route path='/notification' element={<Notification />} />
-        <Route path='/profile/:id' element={< Profile/>} />
+        <Route path='/profile/:username' element={< Profile/>} />
         <Route path='/pin' element={<Pin />} />
         <Route path='/more' element={<More />} />
         <Route path='/post' element={<Show />} />
