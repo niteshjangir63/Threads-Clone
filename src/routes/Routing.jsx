@@ -21,14 +21,15 @@ export default function Routing() {
                 <Route path='/' element={<MiddleContainer pathName={location.pathname} />}>
                     <Route index element={<Home />} />
 
-
-                    <Route path='search' element={<Search />} />
-                    <Route path='/notification' element={<Notification />} />
-                    <Route path='/profile' element={< Profile />} />
-                    <Route path='/pin' element={<Pin />} />
-                    <Route path='/more' element={<More />} />
-                    <Route path='/post' element={<Show />} />
-                    <Route path='*' element={<h1>Page not found</h1>} />
+    
+        <Route path='search' element={<Search />} />
+        <Route path='/notification' element={<Notification />} />
+        <Route path='/profile' element={< Profile/>} />
+        <Route path='/pin' element={<Pin />} />
+        <Route path='/more' element={<More />} />
+        <Route path='/post' element={<Show />} />
+        <Route path='/login' element={<Show />} />
+        <Route path='*' element={<h1>Page not found</h1>} />
 
                 </Route>
                 <Route path='/login' element={<Login />} />

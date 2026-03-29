@@ -1,16 +1,16 @@
 import "./ProfileHeader.css"
-export default function ProfileHeader(){
+export default function ProfileHeader({profileData}){
 
+    if(!profileData) return;
     return (
-
         
         <>
         
         <div className="d-flex flex-col p-3 mb-2 text-light profileHeader">
 
             <div className="row ml-auto profileInner">
-            <h3 className="text-start ">Username</h3>
-            <span className="text-start">anonymous</span>
+            <h3 className="text-start ">{profileData.username}</h3>
+            <span className="text-start">{profileData.name}</span>
             </div>
 
             <div className="ms-auto profileImage">
