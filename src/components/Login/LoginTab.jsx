@@ -1,28 +1,50 @@
 import { useState } from "react";
 import "./LoginTab.css";
 import { Link } from "react-router-dom";
+import Loader from "../loader/Loader";
+import axios from "axios";
 
 export default function LoginTab() {
   const [form, setForm] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+  const [loading,setLoading] = useState(false);
+  const [error,setError] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log("Login Data:", form);
+  const handleSubmit = async (e) => {
+    
+    e.preventDefault();
+    setLoading(true);
+    try{
+
+      const res = await axios.post("http://localhost:8080/login",form);
+      console.log(res);
+      
+    }
+    catch(e){
+      console.log(e.response.data.message);
+      setError(e.response.data.message);
+
+    }
+    finally{
+
+      setLoading(false);
+    }
   };
 
-  let isDisabled = !form.username.trim() || !form.password.trim();
+
+  let isDisabled = !form.email.trim().includes("@gmail") || !form.email.trim().includes(".com") || !form.password.trim();
 
   return (
     <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
       
       <div className="col-11 col-sm-8 col-md-6 col-lg-4 col-xl-3">
-        
+         {error && <span style={{color:"red"}}>{error}</span>}
         <div className="p-4 rounded text-light shadow">
 
           
@@ -32,10 +54,10 @@ export default function LoginTab() {
           >
             <input
               type="text"
-              name="username"
+              name="email"
               className="text-bg-dark p-2 w-100 border-0"
               placeholder="Username, email, phone"
-              value={form.username}
+              value={form.email}
               onChange={handleChange}
             />
           </div>
@@ -59,7 +81,7 @@ export default function LoginTab() {
           <button
             className="btn btn-light w-100 p-2 fw-bold" 
             onClick={handleSubmit}  disabled={isDisabled}>
-            Login
+            {loading ? <Loader/> :<>Login</>}
           </button>
 
          

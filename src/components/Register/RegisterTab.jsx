@@ -1,29 +1,67 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./RegisterTab.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Loader from "../loader/Loader";
+import { useNavigate } from "react-router-dom";
+
 
 export default function RegisterTab() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name:"",
-    username: "",
+    email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error,setError] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log("Login Data:", form);
+  const handleSubmit = async () => {
+    
+    setLoading(true)
+    try{
+
+      const res = await axios.post("http://localhost:8080/signup",form);
+      console.log(res.data.message);
+      if(res.data.success){
+        navigate("/")
+      }
+      
+    }
+    
+    catch(e){
+      console.log(e.response);
+      setError(e.response.data.message)
+      
+    }
+    finally{
+      
+      setLoading(false);
+
+      
+    }
+
   };
 
-  let isDisabled = !form.name.trim() ||!form.username.trim() || !form.password.trim();
+  setTimeout(() =>{
+    setError("");
+  },5000)
 
-  return (
+  
+
+
+  let isDisabled = !form.name.trim() ||!form.email.trim().includes("@gmail") || !form.email.trim().includes(".com")|| !form.password.trim();
+
+  return (<>
     <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
       
       <div className="col-11 col-sm-8 col-md-6 col-lg-4 col-xl-3">
+      {error && <span style={{color:"red"}}>{error}</span>}
         
         <div className="p-4 rounded text-light shadow">
 
@@ -31,7 +69,7 @@ export default function RegisterTab() {
           <div
             className="form-control text-bg-dark mb-3 loginInput"
             style={{ border: "1px solid rgba(135, 134, 134, 0.3)" }}
-          >
+            >
             <input
               type="text"
               name="name"
@@ -46,11 +84,11 @@ export default function RegisterTab() {
             style={{ border: "1px solid rgba(135, 134, 134, 0.3)" }}
           >
             <input
-              type="text"
-              name="username"
+              type="email"
+              name="email"
               className="text-bg-dark p-2 w-100 border-0"
-              placeholder="email"
-              value={form.username}
+              placeholder="Email"
+              value={form.email}
               onChange={handleChange}
             />
           </div>
@@ -74,7 +112,7 @@ export default function RegisterTab() {
           <button
             className="btn btn-light w-100 p-2 fw-bold" 
             onClick={handleSubmit}  disabled={isDisabled}>
-            Register
+            {loading ? <Loader/> : <>Register</>}
           </button>
 
          
@@ -103,5 +141,7 @@ export default function RegisterTab() {
         </div>
       </div>
     </div>
+
+    </>
   );
 }
