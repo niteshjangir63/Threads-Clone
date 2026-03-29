@@ -3,15 +3,15 @@ import ProfileBio from "./ProfileBio";
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 
-export default function ProfileTab(){
+export default function ProfileTab({profile}){
 
     return (
 
         <>
         
-        <ProfileHeader/>
-        <ProfileBio/>
-        <ProfileInfo/>
+        <ProfileHeader profileData={profile}/>
+        <ProfileBio profileData={profile}/>
+        <ProfileInfo profileData={profile}/>
         <ProfileActions/>
         <hr />
         </>

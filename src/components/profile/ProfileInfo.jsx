@@ -1,13 +1,14 @@
 import "./ProfileHeader.css"
-export default function ProfileInfo() {
+export default function ProfileInfo({profileData}) {
 
+    if(!profileData) return;
     return (
 
         <>
 
             <div className="d-flex flex-col text-light m-2">
 
-                <p className="ml-auto follower">243K followers</p>
+                <p className="ml-auto follower">{profileData.followers}followers</p>
                 <div className="profileLinks ms-auto d-flex gap-3">
 
 
