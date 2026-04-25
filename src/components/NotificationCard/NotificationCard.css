@@ -1,0 +1,140 @@
+.notification-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px;
+  background: #000;
+  color: #fff;
+  border-bottom: 1px solid #151515;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.avatar-wrapper {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.notification-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.notification-icon {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.notification-icon.like {
+  background: #ff3040;
+}
+
+.notification-icon.comment {
+  background: #1d9bf0;
+  font-size: 9px;
+}
+
+.notification-icon.follow {
+  background: #8b5cf6;
+  font-size: 14px;
+}
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  overflow: hidden;
+}
+
+.notification-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #f1f1f1;
+  text-align: left;
+
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.notification-username {
+  font-weight: 700;
+  color: #fff;
+}
+
+.notification-time {
+  margin-left: 6px;
+  color: #8e8e8e;
+  font-size: 13px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.notification-comment {
+  margin: 4px 0 0;
+  color: #d6d6d6;
+  font-size: 14px;
+  text-align: left;
+
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.follow-btn {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 7px 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  background: #1d9bf0;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .notification-card {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .avatar-wrapper,
+  .notification-avatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  .follow-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+}

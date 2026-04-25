@@ -1,0 +1,13 @@
+.loginInput input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.loginInput {
+  border-radius: 6px;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

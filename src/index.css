@@ -17,9 +17,22 @@ body {
   min-height: 100vh;
 }
 
+.loader{
+  border: white;
+}
+
 @media (max-width:700px) {
   
   body{
     background-color: #1e1e1e;
   }
+}
+
+
+
+.notification-heading {
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 15px 10px 8px;
 }

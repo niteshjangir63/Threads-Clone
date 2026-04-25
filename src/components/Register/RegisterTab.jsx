@@ -26,8 +26,8 @@ export default function RegisterTab() {
     setLoading(true)
     try{
 
-      const res = await axios.post("http://localhost:8080/signup",form);
-      console.log(res.data.message);
+      const res = await axios.post("http://localhost:5000/signup",form);
+      
       if(res.data.success){
         navigate("/")
       }
@@ -35,7 +35,7 @@ export default function RegisterTab() {
     }
     
     catch(e){
-      console.log(e.response);
+      
       setError(e.response.data.message)
       
     }

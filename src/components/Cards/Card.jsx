@@ -1,14 +1,26 @@
+import { Link } from "react-router-dom"
 import "./Card.css"
-export default function Card(){
 
-    return (
+export default function Card({ user,content}) {
 
-        
-        
-        <div className="form-control text-bg-dark Card d-flex flex-col mb-2 p-3" style={{border:"solid 1px rgba(135, 134, 134, 0.295)" ,display:"flex", alignItems:"center" ,justifyContent:"center"}  }>
-            <span>Notification</span>
-        </div>
+ 
+  
+  return (
 
-        
-    )
-}
+    <Link to={`/profile/${user.username}`} className="thread-card text-decoration-none">
+
+      <img
+        src={user.profile}
+        alt={user.profile}
+        className="thread-avatar"
+      />
+
+      <div className="thread-content">
+        <span className="thread-username">{user.username}</span>
+        <span className="thread-text">{content || "started following you"}</span>
+      </div>
+
+    </Link>
+
+  )
+} 

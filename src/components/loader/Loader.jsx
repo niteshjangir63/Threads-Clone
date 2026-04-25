@@ -1,8 +1,11 @@
-export default function Loader() {
-
-    return (
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    )
+export default function Loader({ size = "sm", color = "white" }) {
+  return (
+    <div
+      className={`spinner-border spinner-border-${size}`}
+      role="status"
+      style={{ color }}
+    >
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  );
 }

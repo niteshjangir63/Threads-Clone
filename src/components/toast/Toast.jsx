@@ -1,14 +1,38 @@
-export default function Toast({msg}){
+import { useEffect, useRef } from "react";
+import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-    return (
+export default function Toast({ msg }) {
 
-        <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="d-flex">
-    <div class="toast-body">
-      {msg}
+  const toastRef = useRef(null);
+
+  useEffect(() => {
+    const toast = new bootstrap.Toast(toastRef.current);
+    toast.show();
+  }, [msg]);
+
+  return (
+    <div className="toast-container position-fixed bottom-0 end-0 p-3">
+      
+      <div
+        ref={toastRef}
+        className="toast bg-primary text-white border-0"
+        role="alert"
+      >
+
+        <div className="d-flex">
+          <div className="toast-body">
+            {msg}
+          </div>
+
+          <button
+            type="button"
+            className="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+          ></button>
+        </div>
+
+      </div>
+
     </div>
-    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-  </div>
-</div>
-    )
+  );
 }

@@ -1,5 +1,14 @@
+import {toast} from "react-hot-toast";
 import "./ProfileHeader.css"
 export default function ProfileInfo({profileData}) {
+
+
+    function copyLink(){
+
+        toast.success("Link Copied")
+        navigator.clipboard.writeText(`http://localhost:5173/profile/${profileData.username}`)
+    }
+
 
     if(!profileData) return;
     return (
@@ -8,7 +17,7 @@ export default function ProfileInfo({profileData}) {
 
             <div className="d-flex flex-col text-light m-2">
 
-                <p className="ml-auto follower">{profileData.followers}followers</p>
+                <p className="ml-auto follower">{profileData.followers.length} {profileData.followers.length > 1 ? "followers" : "follower"} </p>
                 <div className="profileLinks ms-auto d-flex gap-3">
 
 
@@ -29,7 +38,7 @@ export default function ProfileInfo({profileData}) {
 
                         <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                            
-                                <button className="dropdown-item">Copy <i class="fa-solid fa-link ms-auto"></i></button>
+                                <button className="dropdown-item" onClick={()=>copyLink()}>Copy <i class="fa-solid fa-link ms-auto"></i></button>
                             
                         </ul>
                     </div>

@@ -1,6 +1,38 @@
-.Card:hover{
+.thread-card{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border-radius:14px;
+  background-color:#121212;
+  border:1px solid rgba(255,255,255,0.06);
+  transition:all 0.2s ease;
+  cursor:pointer;
+}
 
-    cursor: pointer;
-    background-color: #2f343a !important;
+.thread-card:hover{
+  background-color:#1c1c1c;
+}
 
+.thread-avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.thread-content{
+  display:flex;
+  flex-direction:column;
+  font-size:14px;
+}
+
+.thread-username{
+  font-weight:600;
+  color: white;
+}
+
+.thread-text{
+  color:#aaa;
+  font-size:13px;
 }

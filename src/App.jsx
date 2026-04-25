@@ -1,34 +1,53 @@
-
-import { useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import BottomNav from './components/bottom-navbar/BottomNav'
-import Create from './components/create-post/Create'
 import Routing from './routes/Routing'
-
+import { Toaster } from 'react-hot-toast'
+import { useContext, useEffect } from "react";
+import { socket } from "./socket";
+import toast from "react-hot-toast";
+import { AuthContext } from './context/AuthContext';
 
 
 
 function App() {
 
-  const [display,setDisplay] = useState(false);
+  const {authUser} = useContext(AuthContext);
 
-    function handleCreate(){
 
-      
-        setDisplay(prev => !prev);
+  useEffect(()=>{
 
+    if(authUser){
+
+
+      socket.emit("joinUser",authUser._id)
     }
-  
+
+  },[authUser])
+
+  useEffect(() => {
+    const handleNotification = (data) => {
+      console.log("Notification received:", data);
+      toast.success(data.message);
+    };
+
+    socket.on("notification", handleNotification);
+
+    return () => {
+      socket.off("notification", handleNotification);
+    };
+  }, []);
+
 
 
   return (
     <>
-      <Navbar handleClick={handleCreate}/>
-      <Routing/>
-      <BottomNav handleClick={handleCreate}/>
-      {
-        display && <Create handleClick={handleCreate}/>
-      }
+
+      <Toaster position='top-center' />
+
+      <Navbar />
+      <Routing />
+      <BottomNav />
+
     </>
   )
 }

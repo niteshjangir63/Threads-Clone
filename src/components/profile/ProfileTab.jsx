@@ -12,7 +12,7 @@ export default function ProfileTab({profile}){
         <ProfileHeader profileData={profile}/>
         <ProfileBio profileData={profile}/>
         <ProfileInfo profileData={profile}/>
-        <ProfileActions/>
+        <ProfileActions profileData={profile}/>
         <hr />
         </>
     )

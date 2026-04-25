@@ -1,13 +1,60 @@
-import MiddleContainer from "../components/PostContainer/MiddleContainer";
+import { useContext, useEffect, useState } from "react";
 import Post from "../components/post/Post";
-export default function Home(){
+import { getPost} from "../api/postApi";
+import Loader from "../components/loader/Loader";
+import { usePosts } from "../context/PostContext";
+import { useComments } from "../context/CommentContext";
+import toast from "react-hot-toast";
 
-    return (
 
-        <>
-       <Post/>
-       <Post/>
-        </>
-    )
 
+
+export default function Home() {
+
+  const { posts, setPosts } = usePosts();
+  const [loading, setLoading] = useState(true);
+const { comments, addComment, setComments } = useComments();
+
+  useEffect(() => {
+
+    const fetchPosts = async () => {
+
+      try {
+        const res = await getPost();
+        
+        setPosts(res?.data?.posts || []);
+      } catch (e) {
+        toast.error(e.response.data.message);
+      } finally {
+        setLoading(false);
+      }
+
+    };
+    
+    fetchPosts();
+
+    
+
+  }, []);
+
+
+  
+
+
+
+  if (loading) {
+    return <Loader size="lg" />;
+  }
+
+  if (!posts.length) {
+    return <p className="text-secondary text-center mt-4">No posts yet</p>;
+  }
+
+  return (
+    <>
+      {posts.map((post) => (
+        <Post key={post._id} post={post} />
+      ))}
+    </>
+  );
 }
