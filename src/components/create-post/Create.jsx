@@ -41,7 +41,7 @@ export default function Create({ setDisplay }) {
                 }
 
                 const res = await axios.post(
-                    "http://localhost:5000/create",
+                    "https://threadsclone-42y4.onrender.com/create",
                     formData,
                     {
                         withCredentials: true
