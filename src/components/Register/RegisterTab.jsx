@@ -26,7 +26,7 @@ export default function RegisterTab() {
     setLoading(true)
     try{
 
-      const res = await axios.post("http://localhost:5000/signup",form);
+      const res = await axios.post("https://threadsclone-42y4.onrender.com/signup",form);
       
       if(res.data.success){
         navigate("/")
