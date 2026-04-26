@@ -55,7 +55,7 @@ export default function CommentCard({ userId, content }) {
           
           <div className="commentProfile">
             <img
-              src={userId.profile || "https://i.pravatar.cc/40"}
+              src={userId.profile}
               alt={userId.username}
               className="thread-avatar"
             />

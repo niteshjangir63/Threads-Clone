@@ -9,6 +9,8 @@ export default function NotificationCard({ data, onRead }) {
 
   const sender = data.senderId;
 
+  console.log(sender)
+
   const getMessage = () => {
     switch (data.type) {
       case "LIKE":
@@ -40,9 +42,9 @@ export default function NotificationCard({ data, onRead }) {
       className={`notification-card ${!data.isRead ? "unread" : ""}`}
       onClick={handleClick}
     >
-      <Link className="avatar-wrapper" to={`http://localhost:5173/profile/${sender.username}`} style={{textDecoration:"none"}}>
+      <Link className="avatar-wrapper" to={`https://threadsweb-psi.vercel.app/profile/${sender.username}`} style={{textDecoration:"none"}}>
         <img
-          src={sender?.profile || "https://via.placeholder.com/40"}
+          src={sender?.profile}
           alt="profile"
           className="notification-avatar"
         />
@@ -54,7 +56,7 @@ export default function NotificationCard({ data, onRead }) {
         </span>
       </Link>
 
-      <Link className="notification-content" to={data.postId && `http://localhost:5173/post/${data.postId}`} style={{textDecoration:"none"}}>
+      <Link className="notification-content" to={data.postId && `https://threadsweb-psi.vercel.app/post/${data.postId}`} style={{textDecoration:"none"}}>
         <p className="notification-text">
           <span className="notification-username">
             {sender?.username || "Someone"}
