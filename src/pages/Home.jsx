@@ -17,6 +17,8 @@ const { comments, addComment, setComments } = useComments();
 
   useEffect(() => {
 
+    if(posts.length === 0){
+
     const fetchPosts = async () => {
 
       try {
@@ -33,7 +35,7 @@ const { comments, addComment, setComments } = useComments();
     
     fetchPosts();
 
-    
+  }
 
   }, []);
 

@@ -38,6 +38,10 @@ export default function Profile() {
   }, [username]);
 
   useEffect(() => {
+
+    if (posts.length === 0){
+
+    
     const getPosts = async () => {
       setLoadingPosts(true);
 
@@ -54,6 +58,8 @@ export default function Profile() {
     };
 
     getPosts();
+
+  }
   }, []);
 
   const userPosts = posts.filter(
