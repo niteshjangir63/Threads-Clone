@@ -60,7 +60,7 @@ export default function Profile() {
     getPosts();
 
   }
-  }, []);
+  }, [posts.length]);
 
   const userPosts = posts.filter(
     (post) => post.author?._id === profile?._id

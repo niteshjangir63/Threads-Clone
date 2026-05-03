@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 
 export default function Home() {
 
-  const { posts, setPosts } = usePosts();
+  const { posts, setPosts } = usePosts([]);
   const [loading, setLoading] = useState(true);
 const { comments, addComment, setComments } = useComments();
 
@@ -37,7 +37,7 @@ const { comments, addComment, setComments } = useComments();
 
   }
 
-  }, []);
+  }, [posts.length]);
 
 
   
