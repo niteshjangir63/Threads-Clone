@@ -15,29 +15,25 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 const { comments, addComment, setComments } = useComments();
 
-  useEffect(() => {
-
-    if(posts.length === 0){
-
-    const fetchPosts = async () => {
-
-      try {
-        const res = await getPost();
-        
-        setPosts(res?.data?.posts || []);
-      } catch (e) {
-        toast.error(e.response.data.message);
-      } finally {
-        setLoading(false);
-      }
-
-    };
-    
-    fetchPosts();
-
+ useEffect(() => {
+  if (posts.length > 0) {
+    setLoading(false);
+    return;
   }
 
-  }, [posts.length]);
+  const fetchPosts = async () => {
+    try {
+      const res = await getPost();
+      setPosts(res?.data?.posts || []);
+    } catch (e) {
+      toast.error(e?.response?.data?.message || "Error fetching posts");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchPosts();
+}, [posts.length, setPosts]);
 
 
   
