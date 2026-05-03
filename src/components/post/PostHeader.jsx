@@ -162,7 +162,7 @@ function confirmDelete(id) {
           className="ms-2 mb-0 btn text-light border-0"
           onClick={() => handleFollowing(postInfo?.author?._id)}
         >
-          {isFollow ? "Following" : "Follow"}
+          {isFollow ? "" : "Follow"}
         </button>
       )}
 
