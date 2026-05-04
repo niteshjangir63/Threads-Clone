@@ -112,22 +112,34 @@ export default function Profile() {
     <>
      
 
-      <div className="dropdown d-flex ml-auto" id="settingBtn" title="More">
-                        <button
-                            className="btn text-light border-0"
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            <i className="fa-solid fa-gear"></i>
-                        </button>
+      {authUser?._id === profile?._id && (
+  <div
+    className="dropdown d-flex ms-auto"
+    id="settingBtn"
+    title="More"
+  >
+    <button
+      className="btn text-light border-0"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i className="fa-solid fa-gear"></i>
+    </button>
 
-                        <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
-                           
-                                <button className="dropdown-item" onClick={logout}>Logout</button>
-                            
-                        </ul>
-                    </div>
+    <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+      <li>
+        <button
+          type="button"
+          className="dropdown-item"
+          onClick={logout}
+        >
+          Logout
+        </button>
+      </li>
+    </ul>
+  </div>
+)}
 
       {(loadingProfile || loadingPosts) && <Loader size="lg" />}
 
