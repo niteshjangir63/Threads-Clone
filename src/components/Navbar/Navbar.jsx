@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom"
 import Create from "../create-post/Create"
 import { AuthContext } from "../../context/AuthContext"
 import { NotificationContext } from "../../context/NotificationContext"
+import API from "../../api/axios"
+import toast from "react-hot-toast"
 export default function Navbar() {
     const { authUser } = useContext(AuthContext)
     const { unreadCount } = useContext(NotificationContext)
@@ -12,6 +14,11 @@ export default function Navbar() {
 
 
     const [display, setDisplay] = useState(false);
+
+
+
+    const [loading, setLoading] = useState(false);
+    
 
     function handleCreate() {
 
@@ -23,6 +30,33 @@ export default function Navbar() {
 
     }
 
+
+
+    async function logout() {
+
+        setLoading(true);
+        try {
+
+            const res = await API.post("/logout")
+            localStorage.clear();
+            toast.success(res.data.message);
+
+
+          
+            if (res.data.success) navigate("/login")
+        }
+        catch (e) {
+
+            toast.error(e.response.data.message)
+           
+        }
+        finally {
+
+            setLoading(false)
+            setAuthUser(null);
+        }
+
+    }
 
 
 
@@ -74,7 +108,7 @@ export default function Navbar() {
 
                         <Link className="link p-3" to={"/pin"}><i className="fa-solid fa-thumbtack"></i></Link>
 
-                        <div className="dropdown link p-3">
+                        <div  className="dropdown link p-3">
                             <button
                                 className="btn text-light border-0"
                                 type="button"
@@ -84,11 +118,23 @@ export default function Navbar() {
                             <i className="fa-solid fa-bars-staggered moreMenuBtn"></i>
                             </button>
 
-                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark custom-dropdown">
+  {authUser && (
+    <li>
+      <button className="dropdown-item logout-btn" onClick={logout}>
+        <i className="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </li>
+  )}
 
-                                <button className="dropdown-item " onClick={""}>Logout</button>
-
-                            </ul>
+  {!authUser && (
+    <li>
+      <button className="dropdown-item login-btn" onClick={() => navigate("/login")}>
+        <i className="fa-solid fa-right-to-bracket"></i> Login
+      </button>
+    </li>
+  )}
+</ul>
                         </div>
 
                     </ul>

@@ -70,12 +70,15 @@ export default function UpdateProfile() {
         });
     };
 
+   
+
     return (
         <>
             <h5 className="text-light mb-3 fw-semibold">Edit Profile</h5>
 
-            <div className="threads-form text-light d-flex flex-column text-start">
+            {  loading ? <Loader/> : <div className="threads-form text-light d-flex flex-column text-start">
 
+           
                 <div className="mb-3">
                     <label className="threads-label ">Username</label>
                     <input
@@ -121,6 +124,7 @@ export default function UpdateProfile() {
                 </button>
 
             </div>
+}
         </>
     );
 }

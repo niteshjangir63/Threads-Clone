@@ -1,19 +1,33 @@
-import "./MiddleContainer.css"
-import { Outlet } from "react-router-dom";
-export default function MiddleContainer({pathName}) {
+import "./MiddleContainer.css";
+import { Outlet, useLocation } from "react-router-dom";
 
-  
+export default function MiddleContainer() {
+  const { pathname } = useLocation();
 
-    return (
+  const routes = [
+    { path: "/", label: "Home" },
+    { path: "/profile", label: "Profile" },
+    { path: "/search", label: "Search" },
+    { path: "/notification", label: "Notification" },
+    { path: "/pin", label: "Pin" },
+    { path: "/update", label: "Edit Profile" },
+  ];
 
-        <>
-            <span style={{ color: "white", position: "relative", top: "10px" }}>{pathName == "/" ? pathName = "Home" : pathName[1].toUpperCase() + pathName.slice(2)}</span>
+  const match = routes.find((r) =>
+    r.path === "/" ? pathname === "/" : pathname.startsWith(r.path)
+  );
 
-            <div className="container middleContainer mt-5 p-3">
-                
-                <Outlet/>
-            </div>
+  const title = match?.label || "";
 
-        </>
-    )
+  return (
+    <>
+      <span style={{ color: "white", position: "relative", top: "10px" }}>
+        {title}
+      </span>
+
+      <div className="container middleContainer mt-5 p-3">
+        <Outlet />
+      </div>
+    </>
+  );
 }
