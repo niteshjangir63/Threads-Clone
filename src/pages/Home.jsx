@@ -50,6 +50,7 @@ const { comments, addComment, setComments } = useComments();
 
   return (
     <>
+    
       {posts.map((post) => (
         <Post key={post._id} post={post} />
       ))}

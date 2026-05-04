@@ -6,146 +6,143 @@ import toast from "react-hot-toast";
 import { sendOtp, verifyOtp } from "../../api/forgotApi";
 
 export default function Forgot() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    otp: "",
+  });
 
-    const [form, setForm] = useState({
-        email: "",
-        otp: "",
-    });
-    const [loading, setLoading] = useState(false);
-    const [isOtp, setIsOtp] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isOtp, setIsOtp] = useState(false);
 
+  const handleChange = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
+  const handleSendOtp = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e) => {
+    if (!form.email.trim()) {
+      return toast.error("Email is required");
+    }
 
-        e.preventDefault();
+    if (!navigator.onLine) {
+      return toast.error("No internet connection!");
+    }
 
+    try {
+      setLoading(true);
 
-        
-        
-        if(!navigator.onLine){
-            
-            toast.error("No internet Connection!")
-            return;
-        }
-        setLoading(true);
-        try {
+      const res = await sendOtp({
+        email: form.email,
+      });
 
-            const res = await sendOtp(form)
+      toast.success(res?.data?.message || "OTP sent successfully");
 
-            toast.success(res.data.message)
-            if (res.data.success) setIsOtp(true);
+      if (res?.data?.success) {
+        setIsOtp(true);
+      }
+    } catch (e) {
+      const message = e.response?.data?.message || "Something went wrong";
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        }
-        catch (e) {
-           
-            toast.error(e.response.data.message)
+  const handleVerify = async (e) => {
+    e.preventDefault();
 
-        }
-        finally {
+    if (!form.email.trim() || !form.otp.trim()) {
+      return toast.error("Email and OTP are required");
+    }
 
-            setLoading(false);
+    try {
+      setLoading(true);
 
-        }
-    };
+      const res = await verifyOtp({
+        email: form.email,
+        otp: form.otp,
+      });
 
+      toast.success(res?.data?.message || "OTP verified");
 
-    const handleVerify = async (e) => {
-        e.preventDefault();
-        setLoading(true);
+      localStorage.setItem("isOtp", "true");
 
-        try {
-            if (!form.email || !form.otp) {
-                return toast.error("Email and OTP are required");
-            }
+      setTimeout(() => {
+        localStorage.removeItem("isOtp");
+      }, 20000);
 
-            const res = await verifyOtp(form);
+      navigate("/update-password", {
+        state: { email: form.email },
+      });
+    } catch (e) {
+      const message = e.response?.data?.message || "Something went wrong";
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            toast.success(res.data.message);
-            localStorage.setItem("isOtp", true);
+  return (
+    <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+      <div className="col-11 col-sm-8 col-md-6 col-lg-4 col-xl-3">
+        <h5 className="text-light">Forgot Password</h5>
 
-            setTimeout(()=>{
+        <form
+          onSubmit={isOtp ? handleVerify : handleSendOtp}
+          className="p-4 rounded text-light shadow"
+        >
+          <div
+            className="form-control text-bg-dark mb-3 loginInput"
+            style={{ border: "1px solid rgba(135, 134, 134, 0.3)" }}
+          >
+            <input
+              type="email"
+              name="email"
+              className="text-bg-dark p-2 w-100 border-0"
+              placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+              disabled={isOtp}
+            />
+          </div>
 
-                localStorage.clear();
-
-            },20000)
-            navigate('/update-password', { state: { email: form.email } })
-
-
-
-        } catch (e) {
-            const message = e.response?.data?.message || "Something went wrong";
-           
-            toast.error(message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-
-
-
-
-    return (
-        <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
-
-
-            <div className="col-11 col-sm-8 col-md-6 col-lg-4 col-xl-3">
-                <h5 className="text-light">Forgot Password</h5>
-
-                <div className="p-4 rounded text-light shadow">
-
-
-                    <div
-                        className="form-control text-bg-dark mb-3 loginInput"
-                        style={{ border: "1px solid rgba(135, 134, 134, 0.3)" }}
-                    >
-                        <input
-                            type="text"
-                            name="email"
-                            className="text-bg-dark p-2 w-100 border-0"
-                            placeholder="email"
-                            value={form.email}
-                            onChange={handleChange} />
-                    </div>
-
-
-                    {!isOtp && <button
-                        className="btn btn-light w-100 p-2 fw-bold"
-                        onClick={handleSubmit} disabled={!form.email}>
-                        {loading ? <Loader color="black" /> : <>Send Otp</>}
-                    </button>}
-
-
-                    {isOtp && <> <div
-                        className="form-control text-bg-dark mb-3 loginInput"
-                        style={{ border: "1px solid rgba(135, 134, 134, 0.3)" }}
-                    >
-                        <input
-                            type="text"
-                            name="otp"
-                            className="text-bg-dark p-2 w-100 border-0"
-                            placeholder="Otp"
-                            value={form.otp}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-
-                        <button
-                            className="btn btn-light w-100 p-2 fw-bold"
-                            onClick={handleVerify} >
-                            {loading ? <Loader color="black" /> : <>Verify</>}
-                        </button> </>}
-
-
-                </div>
+          {isOtp && (
+            <div
+              className="form-control text-bg-dark mb-3 loginInput"
+              style={{ border: "1px solid rgba(135, 134, 134, 0.3)" }}
+            >
+              <input
+                type="text"
+                name="otp"
+                className="text-bg-dark p-2 w-100 border-0"
+                placeholder="OTP"
+                value={form.otp}
+                onChange={handleChange}
+              />
             </div>
-        </div>
-    );
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-light w-100 p-2 fw-bold"
+            disabled={loading || !form.email.trim()}
+          >
+            {loading ? (
+              <Loader color="black" />
+            ) : isOtp ? (
+              "Verify"
+            ) : (
+              "Send OTP"
+            )}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }

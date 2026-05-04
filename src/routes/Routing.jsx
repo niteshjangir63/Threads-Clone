@@ -23,8 +23,9 @@ export default function Routing() {
     return (
 
         <>
-
+        
             <Routes>
+
 
                 <Route path='/' element={<MiddleContainer pathName={location.pathname} />}>
                     <Route index element={<Home />} />

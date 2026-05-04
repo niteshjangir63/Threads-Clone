@@ -51,16 +51,15 @@ export default function Navbar() {
                         {/* <Link className="link p-3" to={"/"}>{icons[0]}</Link> */}
                         <Link className="link p-3" to={"/search"}>{icons[1]}</Link>
                         <button className="link p-3 btn border-0" onClick={handleCreate}>{icons[2]}</button>
-                        
-
-                            <Link className="notification-btn link p-3" style={{height:"inherit"}} to={"/notification"}>{icons[3]} {unreadCount > 0 && (
-                                <span className="notification-count">
-                                    {unreadCount > 9 ? "9+" : unreadCount}
-                                </span>
-                            )}</Link>
 
 
-                    
+                        <Link className="notification-btn link p-3" style={{ height: "inherit" }} to={"/notification"}>{icons[3]} {unreadCount > 0 && (
+                            <span className="notification-count">
+                                {unreadCount > 9 ? "9+" : unreadCount}
+                            </span>
+                        )}</Link>
+
+
                         <Link className="link p-3" to="/profile"
                             onClick={() => {
                                 document
@@ -74,7 +73,24 @@ export default function Navbar() {
                     <ul className="row p-4 text-center links nav-links-bottom">
 
                         <Link className="link p-3" to={"/pin"}><i className="fa-solid fa-thumbtack"></i></Link>
-                        <Link className="link mb-5 p-3" to={"/more"}><i className="fa-solid fa-bars-staggered"></i></Link>
+
+                        <div className="dropdown link p-3">
+                            <button
+                                className="btn text-light border-0"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                            <i className="fa-solid fa-bars-staggered moreMenuBtn"></i>
+                            </button>
+
+                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+
+                                <button className="dropdown-item " onClick={""}>Logout</button>
+
+                            </ul>
+                        </div>
+
                     </ul>
                 </div>
 

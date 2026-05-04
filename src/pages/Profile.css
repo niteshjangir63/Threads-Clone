@@ -1,0 +1,12 @@
+#settingBtn{
+    display: none !important;
+}
+
+@media (max-width:825px) {
+    
+    #settingBtn{
+        display: flex !important;
+    }
+
+
+}

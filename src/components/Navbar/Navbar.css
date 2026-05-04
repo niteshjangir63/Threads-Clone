@@ -46,6 +46,12 @@
     font-size: 1.4rem;
     color: grey;
 }
+
+.moreMenuBtn{
+
+    font-size: 1.4rem;
+
+}
 .link:hover{
 
    background-color:#FFFFFF14;

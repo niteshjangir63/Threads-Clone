@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Post from "../components/post/Post";
 import ProfileTab from "../components/profile/ProfileTab";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../components/loader/Loader";
 import toast from "react-hot-toast";
 import API from "../api/axios";
+import { AuthContext } from "../context/AuthContext";
+import "./Profile.css"
 
 export default function Profile() {
   const { username } = useParams();
@@ -15,6 +17,9 @@ export default function Profile() {
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [msg, setMsg] = useState("");
 
+   const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const { authUser, setAuthUser } = useContext(AuthContext)
   useEffect(() => {
     const fetchProfile = async () => {
       setLoadingProfile(true);
@@ -66,8 +71,64 @@ export default function Profile() {
     (post) => post.author?._id === profile?._id
   );
 
+
+
+
+
+   
+
+    async function logout() {
+
+        setLoading(true);
+        try {
+
+            const res = await API.post("/logout")
+            localStorage.clear();
+            toast.success(res.data.message);
+
+
+          
+            if (res.data.success) navigate("/login")
+        }
+        catch (e) {
+
+            toast.error(e.response.data.message)
+           
+        }
+        finally {
+
+            setLoading(false)
+            setAuthUser(null);
+        }
+
+    }
+
+
+
+
+
+
   return (
     <>
+     
+
+      <div className="dropdown d-flex ml-auto" id="settingBtn" title="More">
+                        <button
+                            className="btn text-light border-0"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <i className="fa-solid fa-gear"></i>
+                        </button>
+
+                        <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                           
+                                <button className="dropdown-item" onClick={logout}>Logout</button>
+                            
+                        </ul>
+                    </div>
+
       {(loadingProfile || loadingPosts) && <Loader size="lg" />}
 
       {profile ? (
