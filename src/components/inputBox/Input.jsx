@@ -4,7 +4,7 @@ export default function Input({ value, onChange }) {
 
   return (
 
-    <div className="search-container">
+    <div className="search-container mb-2">
 
       <i className="fa-solid fa-magnifying-glass search-icon"></i>
 

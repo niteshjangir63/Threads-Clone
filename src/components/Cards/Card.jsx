@@ -16,8 +16,8 @@ export default function Card({ user,content}) {
       />
 
       <div className="thread-content">
-        <span className="thread-username">{user.username}</span>
-        <span className="thread-text">{content || "started following you"}</span>
+        <span className="thread-username d-flex ">{user.username}</span>
+        <span className="thread-text">{user.name}</span>
       </div>
 
     </Link>

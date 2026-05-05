@@ -116,7 +116,7 @@ function confirmDelete(id) {
   if (days < 7) return `${days} day ago`;
 
   const weeks = Math.floor(days / 7);
-  if (weeks < 4) return `${weeks} week ago`;
+  if (weeks < 4) return `${weeks}w ago`;
 
   const months = Math.floor(days / 30);
   if (months < 12) return `${months} month ago`;

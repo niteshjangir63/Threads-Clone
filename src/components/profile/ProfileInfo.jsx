@@ -6,7 +6,7 @@ export default function ProfileInfo({profileData}) {
     function copyLink(){
 
         toast.success("Link Copied")
-        navigator.clipboard.writeText(`http://localhost:5173/profile/${profileData.username}`)
+        navigator.clipboard.writeText(`https://threadsweb-psi.vercel.app/profile/${profileData.username}`)
     }
 
 

@@ -7,19 +7,20 @@ import toast from "react-hot-toast";
 import API from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 import "./Profile.css"
+import { usePosts } from "../context/PostContext";
 
 export default function Profile() {
   const { username } = useParams();
 
   const [profile, setProfile] = useState(null);
-  const [posts, setPosts] = useState([]);
+  const { posts, setPosts } = usePosts([]);
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [msg, setMsg] = useState("");
 
-   const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-    const { authUser, setAuthUser } = useContext(AuthContext)
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { authUser, setAuthUser } = useContext(AuthContext)
   useEffect(() => {
     const fetchProfile = async () => {
       setLoadingProfile(true);
@@ -42,104 +43,65 @@ export default function Profile() {
     fetchProfile();
   }, [username]);
 
-  useEffect(() => {
-
-    if (posts.length === 0){
-
-    
-    const getPosts = async () => {
-      setLoadingPosts(true);
-
-      try {
-        const res = await API.get("/posts");
-        setPosts(res.data.posts || []);
-      } catch (e) {
-        const message = e?.response?.data?.message || "Error fetching posts";
-        setMsg(message);
-        toast.error(message);
-      } finally {
-        setLoadingPosts(false);
-      }
-    };
-
-    getPosts();
-
-  }
-  }, [posts.length]);
 
   const userPosts = posts.filter(
     (post) => post.author?._id === profile?._id
   );
 
 
+  async function logout() {
+
+    setLoading(true);
+    try {
+
+      const res = await API.post("/logout")
+      localStorage.clear();
+      toast.success(res.data.message);
 
 
+      if (res.data.success) navigate("/login")
+    }
+    catch (e) {
 
-   
-
-    async function logout() {
-
-        setLoading(true);
-        try {
-
-            const res = await API.post("/logout")
-            localStorage.clear();
-            toast.success(res.data.message);
-
-
-          
-            if (res.data.success) navigate("/login")
-        }
-        catch (e) {
-
-            toast.error(e.response.data.message)
-           
-        }
-        finally {
-
-            setLoading(false)
-            setAuthUser(null);
-        }
+      toast.error(e.response.data.message)
 
     }
+    finally {
 
+      setLoading(false)
+      setAuthUser(null);
+    }
 
-
-
-
+  }
 
   return (
     <>
-     
+
 
       {authUser?._id === profile?._id && (
-  <div
-    className="dropdown d-flex ms-auto"
-    id="settingBtn"
-    title="More"
-  >
-    <button
-      className="btn text-light border-0"
-      type="button"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
-      <i className="fa-solid fa-gear"></i>
-    </button>
-
-    <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
-      <li>
-        <button
-          type="button"
-          className="dropdown-item"
-          onClick={logout}
+        <div
+          className="dropdown d-flex ms-auto"
+          id="settingBtn"
+          title="More"
         >
-          Logout
-        </button>
-      </li>
-    </ul>
-  </div>
-)}
+          <button
+            className="btn text-light border-0"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i className="fa-solid fa-gear"></i>
+          </button>
+
+          <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+            <li>
+              <button className="dropdown-item logout-btn" onClick={logout}>
+                <i className="fa-solid fa-right-from-bracket"></i> Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
 
       {(loadingProfile || loadingPosts) && <Loader size="lg" />}
 

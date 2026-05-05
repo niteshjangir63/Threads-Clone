@@ -7,15 +7,11 @@ import { AuthContext } from "../../context/AuthContext";
 import Loader from "../loader/Loader";
 export default function ProfileHeader({ profileData }) {
     const { authUser } = useContext(AuthContext);
-    const [loading,setLoading] = useState(false);
-
-
-
-
-
+    const [loading, setLoading] = useState(false);
 
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
+    const [profilePreview, setProfilePreview] = useState(null);
 
     useEffect(() => {
         if (!file) {
@@ -52,13 +48,30 @@ export default function ProfileHeader({ profileData }) {
             toast.error(e.response?.data?.message || "Error");
         }
 
-        finally{
+        finally {
             setLoading(false)
         }
     };
 
 
-  
+    const handlePreviewProfile = (e) =>{
+         e.stopPropagation();
+        setProfilePreview(profileData.profile)
+
+    }
+    const handleClosePreviewProfile = (e) =>{
+         e.stopPropagation();
+         if(e.currentTarget === e.target){
+
+             setProfilePreview(null)
+
+         }
+
+    }
+
+    
+
+
     if (!profileData) return;
     return (
 
@@ -78,12 +91,17 @@ export default function ProfileHeader({ profileData }) {
                         style={{ display: "none" }}
                     />
                 )}
-                <label htmlFor="profileImage" className="ms-auto profileImage" style={{ cursor: "pointer" }}>
+
+                <div className="ms-auto profileImage" onClick={handlePreviewProfile}>
 
                     <img src={profileData.profile} alt={profileData.profile} />
 
+                </div>
+                {authUser?._id === profileData?._id && <label htmlFor="profileImage" className="profileUpdateBtn" style={{ cursor: "pointer" }}>
 
-                </label>
+                    <i className="fa-solid fa-plus"></i>
+
+                </label>}
 
             </div>
 
@@ -97,6 +115,7 @@ export default function ProfileHeader({ profileData }) {
                         onClick={(e) => {
                             e.stopPropagation();
                             setPreview(null);
+                            setFile(null)
                         }}
                     >
                         ✕
@@ -109,15 +128,27 @@ export default function ProfileHeader({ profileData }) {
                             height={300}
                             radiusInPer={100}
                         />
-                        <button className="btn btn-light mt-3" onClick={handleUpdateProfile}>{loading ? <Loader color="black"/> : <>Update</> }</button>
+                        <button className="btn btn-light mt-3" onClick={handleUpdateProfile}>{loading ? <Loader color="black" /> : <>Update</>}</button>
                     </div>
                 </div>
             )}
 
+            {profilePreview && <div className="imageOverlay" onClick={(e)=>handleClosePreviewProfile(e)}>
+                <button
+          className="btn btn-dark border-0 closeBtn"
+          onClick={(e) => {
+           handleClosePreviewProfile(e)
+            e.stopPropagation();
+            setPreview(null);
+          }}
+        >
+          ✕
+        </button>
+
+                <ImagePreview image={profilePreview} />
 
 
-
-
+            </div>}
         </>
     )
 }

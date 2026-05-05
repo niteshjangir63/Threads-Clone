@@ -11,16 +11,12 @@ export default function PostFeed({ postInfo }) {
   const [loader, setLoader] = useState(false);
   const [image, setImage] = useState(null);
 
-  
 
-  const showImageFullScreen = async (id) => {
-    try {
-      const res = await getPostById(id);
 
-      setImage(`${res.data.post.image}`);
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
+  const showImageFullScreen = (id) => {
+
+    setImage(`${postInfo.image}`);
+
   };
 
 
@@ -60,6 +56,17 @@ export default function PostFeed({ postInfo }) {
       )}
 
       {image && <div className="imageOverlay" onClick={(e) => closeImagePreviewImage(e)}>
+
+        <button
+          className="btn btn-dark border-0 closeBtn"
+          onClick={(e) => {
+            closeImagePreviewImage(e)
+            e.stopPropagation();
+            setPreview(null);
+          }}
+        >
+          ✕
+        </button>
 
         <ImagePreview image={image} heights={100} />
 
