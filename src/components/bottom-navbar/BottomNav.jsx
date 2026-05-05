@@ -33,8 +33,8 @@ export default function BottomNav({ handleClick }) {
                 <ul className="links" >
                     <Link className="link p-2" to={"/"}>{icons[0]}</Link>
                     <Link className="link p-2" to={"/search"}>{icons[1]}</Link>
-                    <button className="link p-3 btn border-0" onClick={handleCreate}>{icons[2]}</button>
-                    <Link className="notification-btn link p-3" style={{ height: "inherit" }} to={"/notification"}>{icons[3]} {unreadCount > 0 && (
+                    <button className="link p-3 btn border-0 createBtn" onClick={handleCreate}>{icons[2]}</button>
+                    <Link className="notification-btn bottomNav-notificationBtn link p-3 " style={{ height: "inherit" }} to={"/notification"}>{icons[3]} {unreadCount > 0 && (
                         <span className="notification-count">
                             {unreadCount > 9 ? "9+" : unreadCount}
                         </span>

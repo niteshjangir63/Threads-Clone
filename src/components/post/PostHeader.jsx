@@ -4,16 +4,18 @@ import Skeleton from "../skeleton/Skeleton";
 import { AuthContext } from "../../context/AuthContext";
 import { deletePost, handleFollow } from "../../api/postApi";
 import { usePosts } from "../../context/PostContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import Loader from "../loader/Loader";
 
 export default function PostHeader({ postInfo }) {
 
-
+  const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { authUser } = useContext(AuthContext);
   const { removePost } = usePosts();
@@ -75,18 +77,8 @@ function confirmDelete(id) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   const handleFollowing = async (userId) => {
+    setLoading(true)
     try {
       const res = await handleFollow(userId);
       toast.success(res.data.message)
@@ -94,6 +86,9 @@ function confirmDelete(id) {
     } catch (e) {
       toast.error(e.response.data.message)
       
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -124,6 +119,7 @@ function confirmDelete(id) {
   const years = Math.floor(days / 365);
   return `${years} year ago`;
 }
+
 
 
 
@@ -162,7 +158,7 @@ function confirmDelete(id) {
           className="ms-2 mb-0 btn text-light border-0"
           onClick={() => handleFollowing(postInfo?.author?._id)}
         >
-          {isFollow ? "" : "Follow"}
+          {loading ? <Loader/> :<>{isFollow ? "" : "Follow"}</>}
         </button>
       )}
 
@@ -182,7 +178,7 @@ function confirmDelete(id) {
           {isOwner && (
             <>
               <li>
-                <button className="dropdown-item">Edit</button>
+                <button className="dropdown-item" onClick={(e) =>navigate(`/edit/post/${postInfo._id}`)}>Edit</button>
               </li>
 
               <li>

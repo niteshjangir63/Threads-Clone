@@ -49,6 +49,33 @@ export default function Profile() {
   );
 
 
+
+
+  useEffect(() => {
+
+   
+
+    
+    const getPosts = async () => {
+      setLoadingPosts(true);
+
+      try {
+        const res = await API.get("/posts");
+        setPosts(res.data.latest || []);
+      } catch (e) {
+        const message = e?.response?.data?.message || "Error fetching posts";
+        setMsg(message);
+        toast.error(message);
+      } finally {
+        setLoadingPosts(false);
+      }
+    };
+
+    getPosts();
+
+  
+  }, [posts.length]);
+
   async function logout() {
 
     setLoading(true);
@@ -103,7 +130,7 @@ export default function Profile() {
         </div>
       )}
 
-      {(loadingProfile || loadingPosts) && <Loader size="lg" />}
+      {(loadingProfile) && <Loader size="lg" />}
 
       {profile ? (
         <>
@@ -112,7 +139,7 @@ export default function Profile() {
           {userPosts.length > 0 ? (
             userPosts.map((post) => <Post key={post._id} post={post} />)
           ) : (
-            <h5 className="text-light text-center mt-3">No posts yet</h5>
+            <h5 className="text-light text-center mt-3">{loadingPosts ? <Loader size="lg"/> : "No posts yet"}</h5>
           )}
         </>
       ) : (

@@ -17,6 +17,7 @@ import UpdateProfile from '../pages/UpdateProfile'
 import Forgot from '../components/Forgot/Forgot'
 import UpdatePassword from '../pages/UpdatePassword'
 import OtpProtectedRoute from './OtpProtectedRoute'
+import EditPost from '../pages/EditPost'
 export default function Routing() {
     let location = useLocation();
 
@@ -41,6 +42,7 @@ export default function Routing() {
                     <Route path='/post/:id' element={<SinglePost />} />
                     <Route path='*' element={<h1>Page not found</h1>} />
                     <Route path='/update/profile' element={<UpdateProfile />} />
+                    <Route path='/edit/post/:id' element={<EditPost />} />
 
                 </Route>
 

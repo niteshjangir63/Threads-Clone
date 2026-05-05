@@ -142,6 +142,15 @@ export default function Create({ setDisplay }) {
     }
   };
 
+
+  useEffect(()=> {
+
+        document.body.style.overflow = "hidden";
+
+        return () =>{document.body.style.overflow ="auto"} 
+
+    },[]);
+
   return (
     <div className="Outer-Container" onClick={handleOuterClick}>
       <div className="inner-container text-light p-3">

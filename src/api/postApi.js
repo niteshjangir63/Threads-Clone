@@ -46,3 +46,8 @@ export const deleteComment = (id) =>{
 
     return API.delete(`/comment/delete/${id}`);
 }
+
+export const editPost = (form) => {
+
+    return API.put(`/edit/post`,form);
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../create-post/Create.css";
 import MyInput from "../inputBox/MyInput";
 import { addComment } from "../../api/postApi";
@@ -41,6 +41,16 @@ export default function Comment({ handleOuterClick, postId }) {
       handleComment();
     }
   };
+
+
+  useEffect(()=> {
+  
+          document.body.style.overflow = "hidden";
+  
+          return () =>{document.body.style.overflow ="auto"} 
+  
+      },[]);
+
 
   return (
     <div className="Outer-Container" onClick={handleOuterClick}>
