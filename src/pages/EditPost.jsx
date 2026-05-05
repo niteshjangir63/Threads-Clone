@@ -89,7 +89,7 @@ export default function EditPost() {
 
           {image && (
             <div className="mb-2">
-              <ImagePreview image={image} height={350} width={200} />
+              <ImagePreview image={image} height={300} width={200} />
             </div>
           )}
 
