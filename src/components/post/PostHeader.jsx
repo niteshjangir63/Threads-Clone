@@ -123,6 +123,23 @@ function confirmDelete(id) {
 
 
 
+async function handleShare (){
+
+  if(navigator.share){
+    try{
+      await navigator.share({
+        title:"Post",
+        text:"Check this post",
+        url:`${window.location.href}/post/${postInfo._id}`
+      })
+    }catch(e){
+      toast.error("Error to Share");
+    }
+  }
+}
+
+
+
 
 
   if(!postInfo) return null;
@@ -198,7 +215,7 @@ function confirmDelete(id) {
           )}
 
           <li>
-            <button className="dropdown-item">Share</button>
+            <button className="dropdown-item" onClick={handleShare}>Share</button>
           </li>
 
           {!isOwner && (
