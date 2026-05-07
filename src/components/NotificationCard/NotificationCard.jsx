@@ -37,6 +37,15 @@ export default function NotificationCard({ data, onRead }) {
       })
     : "";
 
+
+
+
+
+
+
+
+    
+
   return (
     <div
       className={`notification-card ${!data.isRead ? "unread" : ""}`}
@@ -80,8 +89,8 @@ export default function NotificationCard({ data, onRead }) {
           Follow
         </button>
       )}
-
       {!data.isRead && <div className="notification-dot"></div>}
+      <i class="fa-solid fa-trash text-danger dltIcon"></i>
     </div>
   );
 }

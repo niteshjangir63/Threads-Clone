@@ -37,27 +37,33 @@ export default function PostActions({ postInfo }) {
   }, [postInfo]);
 
   const handleLikes = async (id) => {
+  if (!authUser) {
+    toast.error("Unauthorized User!");
+    return;
+  }
 
-    if (!authUser) {
-      toast.error("Unauthorized User!")
-      return;
-    }
+  const alreadyLiked = like?.includes(authUser._id);
 
-    try {
+  
+  setLike((prev) =>
+    alreadyLiked
+      ? prev.filter((userId) => userId !== authUser._id)
+      : [...prev, authUser._id]
+  );
 
-      await likePost(id);
+  try {
+    await likePost(id);
+  } catch (e) {
+    
+    setLike((prev) =>
+      alreadyLiked
+        ? [...prev, authUser._id]
+        : prev.filter((userId) => userId !== authUser._id)
+    );
 
-      if (like?.includes(authUser._id)) {
-        setLike((prev) => prev.filter((userId) => userId !== authUser._id));
-      } else {
-        setLike((prev) => [...prev, authUser._id]);
-      }
-
-    } catch (e) {
-      toast.error(e.response.data.message)
-    }
-
-  };
+    toast.error(e?.response?.data?.message || "Something went wrong");
+  }
+};
 
   useEffect(() => {
     const count = comments.filter(

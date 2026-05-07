@@ -33,11 +33,11 @@ export default function PostHeader({ postInfo }) {
   async function handleDelete(id) {
     try {
       setDeleting(true);
-     const res =  await deletePost(id);
-     toast.success(res.data.message);
+      const res = await deletePost(id);
+      toast.success(res.data.message);
       removePost(id);
     } catch (e) {
-      
+
       toast.error(e.response.data.message)
       alert("Failed to delete post");
     } finally {
@@ -47,48 +47,55 @@ export default function PostHeader({ postInfo }) {
 
 
 
-function confirmDelete(id) {
-  Swal.fire({
-    title: "Delete post?",
-    text: "This action cannot be undone.",
-    showCancelButton: true,
+  function confirmDelete(id) {
+    Swal.fire({
+      title: "Delete post?",
+      text: "This action cannot be undone.",
+      showCancelButton: true,
 
-    confirmButtonText: "Delete",
-    cancelButtonText: "Cancel",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
 
-    background: "#181818",   
-    color: "#f5f5f5",
+      background: "#181818",
+      color: "#f5f5f5",
 
-    buttonsStyling: false,
+      buttonsStyling: false,
 
-    customClass: {
-      popup: "threads-popup",
-      confirmButton: "threads-delete",
-      cancelButton: "threads-cancel",
-    },
-  }).then((result) => {
-    if (result.isConfirmed) {
-      handleDelete(id);
-    }
-  });
-}
+      customClass: {
+        popup: "threads-popup",
+        confirmButton: "threads-delete",
+        cancelButton: "threads-cancel",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(id);
+      }
+    });
+  }
 
 
 
 
 
   const handleFollowing = async (userId) => {
-    setLoading(true)
+
+    const prevState = isFollow;
+
+
+    setIsFollow(!prevState);
+
     try {
       const res = await handleFollow(userId);
-      toast.success(res.data.message)
-      setIsFollow(prev => !prev);
+      toast.success(res.data.message);
+
     } catch (e) {
-      toast.error(e.response.data.message)
-      
-    }
-    finally{
-      setLoading(false)
+
+
+      setIsFollow(prevState);
+
+      toast.error(
+        e?.response?.data?.message || "Something went wrong"
+      );
     }
   };
 
@@ -96,53 +103,53 @@ function confirmDelete(id) {
 
 
   function timeAgo(timestamp) {
-  const now = new Date();
-  const seconds = Math.floor((now - new Date(timestamp)) / 1000);
+    const now = new Date();
+    const seconds = Math.floor((now - new Date(timestamp)) / 1000);
 
-  if (seconds < 60) return "just now";
+    if (seconds < 60) return "just now";
 
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes} min ago`;
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes} min ago`;
 
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours} hr ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} hr ago`;
 
-  const days = Math.floor(hours / 24);
-  if (days < 7) return `${days} day ago`;
+    const days = Math.floor(hours / 24);
+    if (days < 7) return `${days} day ago`;
 
-  const weeks = Math.floor(days / 7);
-  if (weeks < 4) return `${weeks}w ago`;
+    const weeks = Math.floor(days / 7);
+    if (weeks < 4) return `${weeks}w ago`;
 
-  const months = Math.floor(days / 30);
-  if (months < 12) return `${months} month ago`;
+    const months = Math.floor(days / 30);
+    if (months < 12) return `${months} month ago`;
 
-  const years = Math.floor(days / 365);
-  return `${years} year ago`;
-}
-
-
+    const years = Math.floor(days / 365);
+    return `${years} year ago`;
+  }
 
 
-async function handleShare (){
 
-  if(navigator.share){
-    try{
-      await navigator.share({
-        title:"Post",
-        text:"Check this post",
-        url:`${window.location.href}/post/${postInfo._id}`
-      })
-    }catch(e){
-      toast.error("Error to Share");
+
+  async function handleShare() {
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Post",
+          text: "Check this post",
+          url: `${window.location.href}/post/${postInfo._id}`
+        })
+      } catch (e) {
+
+      }
     }
   }
-}
 
 
 
 
 
-  if(!postInfo) return null;
+  if (!postInfo) return null;
 
   return (
     <div className="d-flex flex-row align-items-center">
@@ -175,7 +182,7 @@ async function handleShare (){
           className="ms-2 mb-0 btn text-light border-0"
           onClick={() => handleFollowing(postInfo?.author?._id)}
         >
-          {loading ? <Loader/> :<>{isFollow ? "" : "Follow"}</>}
+          {loading ? <Loader /> : <>{isFollow ? "" : "Follow"}</>}
         </button>
       )}
 
@@ -195,7 +202,7 @@ async function handleShare (){
           {isOwner && (
             <>
               <li>
-                <button className="dropdown-item" onClick={(e) =>navigate(`/edit/post/${postInfo._id}`)}>Edit</button>
+                <button className="dropdown-item" onClick={(e) => navigate(`/edit/post/${postInfo._id}`)}>Edit</button>
               </li>
 
               <li>

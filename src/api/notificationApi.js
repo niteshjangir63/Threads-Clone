@@ -9,3 +9,6 @@ export const fetchNotification = () => {
 export const markNotificationRead = (id) => {
     return API.patch(`/notifications/${id}/read`);
 };
+export const markNotificationReadAll = () => {
+    return API.patch(`/notifications/readAll`);
+};
