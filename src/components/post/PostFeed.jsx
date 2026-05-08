@@ -5,11 +5,13 @@ import { useState } from "react";
 import { getPostById } from "../../api/postApi";
 import ImagePreview from "../Image-Preview/ImagePreview";
 import toast from "react-hot-toast";
+import { useTheme } from "../../context/Appearance";
 
 export default function PostFeed({ postInfo }) {
 
   const [loader, setLoader] = useState(false);
   const [image, setImage] = useState(null);
+  const {theme} = useTheme();
 
 
 
@@ -32,7 +34,7 @@ export default function PostFeed({ postInfo }) {
     <>
       <Link
         to={`/post/${postInfo._id}`}
-        className="text-start d-flex mb-2 mt-2 text-light text-decoration-none"
+        className={`text-start d-flex mb-2 mt-2 ${theme ? "text-dark ":"text-light"} text-decoration-none`}
       >
         {postInfo.content}
       </Link>

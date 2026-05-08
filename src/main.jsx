@@ -8,12 +8,14 @@ import { PostProvider } from './context/PostContext.jsx'
 import { CommentProvider } from './context/CommentContext.jsx'
 import { ToastContainer } from 'react-toastify'
 import { NotificationProvider } from './context/NotificationContext.jsx'
+import { ThemeProvider } from './context/Appearance.jsx'
 
 
 
 createRoot(document.getElementById('root')).render(
  
     <BrowserRouter>
+    <ThemeProvider>
       <AuthProvider>
         <PostProvider>
           <CommentProvider>
@@ -23,6 +25,7 @@ createRoot(document.getElementById('root')).render(
           </CommentProvider>
         </PostProvider>
       </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   
 )

@@ -1,0 +1,32 @@
+.threads-toggle {
+  width: 44px;
+  height: 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  position: relative;
+  transition: background 0.25s ease;
+  display: flex;
+  align-items: center;
+}
+
+.threads-toggle.dark {
+  background: #3a3a3a;
+}
+
+.threads-toggle.light {
+  background: #d1d1d1;
+}
+
+.threads-circle {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+}
+
+.threads-toggle.light .threads-circle {
+  transform: translateX(20px);
+}

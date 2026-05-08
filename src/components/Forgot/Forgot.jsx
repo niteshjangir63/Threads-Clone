@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../loader/Loader";
 import toast from "react-hot-toast";
 import { sendOtp, verifyOtp } from "../../api/forgotApi";
+import { useTheme } from "../../context/Appearance";
 
 export default function Forgot() {
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   const [form, setForm] = useState({
     email: "",
@@ -37,9 +39,7 @@ export default function Forgot() {
     try {
       setLoading(true);
 
-      const res = await sendOtp({
-        email: form.email,
-      });
+      const res = await sendOtp({ email: form.email });
 
       toast.success(res?.data?.message || "OTP sent successfully");
 
@@ -47,8 +47,7 @@ export default function Forgot() {
         setIsOtp(true);
       }
     } catch (e) {
-      const message = e.response?.data?.message || "Something went wrong";
-      toast.error(message);
+      toast.error(e.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -81,30 +80,38 @@ export default function Forgot() {
         state: { email: form.email },
       });
     } catch (e) {
-      const message = e.response?.data?.message || "Something went wrong";
-      toast.error(message);
+      toast.error(e.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div
+      className={`container-fluid min-vh-100 d-flex justify-content-center align-items-center ${
+        theme ? "light-auth-page" : "dark-auth-page"
+      }`}
+    >
       <div className="col-11 col-sm-8 col-md-6 col-lg-4 col-xl-3">
-        <h5 className="text-light">Forgot Password</h5>
+        <h5 className={`mb-3 ${theme ? "text-dark" : "text-light"}`}>
+          Forgot Password
+        </h5>
 
         <form
           onSubmit={isOtp ? handleVerify : handleSendOtp}
-          className="p-4 rounded text-light shadow"
+          className={`p-4 rounded auth-box ${
+            theme ? "light-auth-box" : "dark-auth-box"
+          }`}
         >
           <div
-            className="form-control text-bg-dark mb-3 loginInput"
-            style={{ border: "1px solid rgba(135, 134, 134, 0.3)" }}
+            className={`form-control mb-3 loginInput ${
+              theme ? "light-input-box" : "dark-input-box"
+            }`}
           >
             <input
               type="email"
               name="email"
-              className="text-bg-dark p-2 w-100 border-0"
+              className="p-2 w-100 border-0 auth-input"
               placeholder="Email"
               value={form.email}
               onChange={handleChange}
@@ -114,13 +121,14 @@ export default function Forgot() {
 
           {isOtp && (
             <div
-              className="form-control text-bg-dark mb-3 loginInput"
-              style={{ border: "1px solid rgba(135, 134, 134, 0.3)" }}
+              className={`form-control mb-3 loginInput ${
+                theme ? "light-input-box" : "dark-input-box"
+              }`}
             >
               <input
                 type="text"
                 name="otp"
-                className="text-bg-dark p-2 w-100 border-0"
+                className="p-2 w-100 border-0 auth-input"
                 placeholder="OTP"
                 value={form.otp}
                 onChange={handleChange}
@@ -130,11 +138,13 @@ export default function Forgot() {
 
           <button
             type="submit"
-            className="btn btn-light w-100 p-2 fw-bold"
+            className={`btn w-100 p-2 fw-bold ${
+              theme ? "btn-dark" : "btn-light"
+            }`}
             disabled={loading || !form.email.trim()}
           >
             {loading ? (
-              <Loader color="black" />
+              <Loader color={theme ? "white" : "black"} />
             ) : isOtp ? (
               "Verify"
             ) : (

@@ -5,6 +5,7 @@ import { updateProfileImage } from "../../api/profileApi";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/AuthContext";
 import Loader from "../loader/Loader";
+import { useTheme } from "../../context/Appearance";
 export default function ProfileHeader({ profileData }) {
     const { authUser } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
@@ -12,6 +13,7 @@ export default function ProfileHeader({ profileData }) {
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
     const [profilePreview, setProfilePreview] = useState(null);
+    const {theme} = useTheme();
 
     useEffect(() => {
         if (!file) {
@@ -77,7 +79,7 @@ export default function ProfileHeader({ profileData }) {
 
         <>
 
-            <div className="d-flex flex-col p-3 mb-2 text-light profileHeader">
+            <div className={`d-flex flex-col p-3 mb-2 ${theme ? "text-dark" : "text-light"} profileHeader `}>
 
                 <div className="row ml-auto profileInner">
                     <h3 className="text-start ">{profileData.username}</h3>

@@ -58,8 +58,15 @@
     margin-left: 5px;
     transition: ease .2s;
     cursor: pointer;
-    filter: invert(1) sepia(1) saturate(5) hue-rotate(200deg);
+    /* filter: invert(1); */
+}
 
+.post-action-dark{
+    filter: invert(0);
+}
+.post-action-light{
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(200deg);
+    
 }
 
 .post-bottom-button:hover {

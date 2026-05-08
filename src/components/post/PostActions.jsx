@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Comment from "../comment/Comment";
 import { useComments } from "../../context/CommentContext";
 import toast from "react-hot-toast";
+import { useTheme } from "../../context/Appearance";
 
 export default function PostActions({ postInfo }) {
 
@@ -12,6 +13,7 @@ export default function PostActions({ postInfo }) {
   const [show, setShow] = useState(false);
   const { comments } = useComments();
   const [count, setCount] = useState(0);
+  const {theme} = useTheme();
 
 
 
@@ -81,11 +83,11 @@ export default function PostActions({ postInfo }) {
     <>
 
       {show && <Comment handleOuterClick={handleOuterClick} postId={postInfo._id} />}
-      <div className="d-flex flex-row mt-1 gap-2">
+      <div className="d-flex flex-row mt-1 gap-2 ">
 
         <span title="Like" onClick={() => handleLikes(postInfo._id)}>
           <img
-            className="post-bottom-button"
+            className={`post-bottom-button ${theme ? "post-action-dark" : "post-action-light"}`}
             src={authUser && like?.includes(authUser._id)
               ? "/svgIcons/heart-red.svg"
               : "/svgIcons/heart.svg"}
@@ -94,24 +96,24 @@ export default function PostActions({ postInfo }) {
               filter: authUser && like?.includes(authUser._id) ? "none" : ""
             }}
           />
-          <span style={{ fontSize: "13px", marginLeft: "3px" }}>
+          <span style={{ fontSize: "13px", marginLeft: "3px",color:theme ? "black" : "white"}}>
             {like?.length > 0 && like.length}
           </span>
         </span>
 
         <span title="Comment" onClick={openCommentBox}>
-          <img className="post-bottom-button" src="/svgIcons/comment.svg" alt="comment" />
-          <span style={{ fontSize: "13px", marginLeft: "3px" }}>
+          <img className={`post-bottom-button ${theme ? "post-action-dark" : "post-action-light"}`} src="/svgIcons/comment.svg" alt="comment" />
+          <span style={{ fontSize: "13px", marginLeft: "3px" ,color:theme ? "black" : "white"}}>
             {count > 0 && count}
           </span>
         </span>
 
-        <span title="Repost">
-          <img className="post-bottom-button" src="/svgIcons/repost.svg" alt="repost" />
+        <span title="Repost ">
+          <img className={`post-bottom-button ${theme ? "post-action-dark" : "post-action-light"}`} src="/svgIcons/repost.svg" alt="repost" />
         </span>
 
         <span title="Share">
-          <img className="post-bottom-button" src="/svgIcons/share.svg" alt="share" />
+          <img className={`post-bottom-button ${theme ? "post-action-dark" : "post-action-light"}`} src="/svgIcons/share.svg" alt="share" />
         </span>
 
       </div>

@@ -1,8 +1,10 @@
+import { useTheme } from "../../context/Appearance";
 import "./MiddleContainer.css";
 import { Outlet, useLocation } from "react-router-dom";
 
 export default function MiddleContainer() {
   const { pathname } = useLocation();
+  const {theme} = useTheme();
 
   const routes = [
     { path: "/", label: "Home" },
@@ -25,7 +27,7 @@ export default function MiddleContainer() {
         {title}
       </span>
 
-      <div className="container middleContainer mt-5 p-3">
+      <div className={`container middleContainer mt-5 p-3 ${theme ? "light-theme" : "dark-theme"}`}>
         <Outlet />
       </div>
     </>

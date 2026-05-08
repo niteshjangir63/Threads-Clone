@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useComments } from "../../context/CommentContext";
 import Loader from "../loader/Loader";
 import toast from "react-hot-toast";
+import { useTheme } from "../../context/Appearance";
 
 export default function Comment({ handleOuterClick, postId }) {
   const { addComments } = useComments();
@@ -13,6 +14,7 @@ export default function Comment({ handleOuterClick, postId }) {
 
   const [value, setValue] = useState("");
   const [loading, setLoading] = useState(false);
+  const {theme} = useTheme();
 
   const handleComment = async () => {
     if (!value.trim()) return;
@@ -53,9 +55,9 @@ export default function Comment({ handleOuterClick, postId }) {
 
 
   return (
-    <div className="Outer-Container" onClick={handleOuterClick}>
+    <div className={`Outer-Container ${theme ? "light-outer-container" : "dark-outer-container"}` } onClick={handleOuterClick}>
       <div
-        className="inner-container h-25 text-light p-3 d-flex flex-row gap-4"
+        className={`inner-container h-25 text-light p-3 d-flex flex-row gap-4 ${theme ? "light-inner-container" : "dark-inner-container"}`}
         onClick={(e) => e.stopPropagation()}
       >
         <MyInput
@@ -66,11 +68,11 @@ export default function Comment({ handleOuterClick, postId }) {
         />
 
         <button
-          className="btn btn-light ms-auto mt-auto"
+          className={`btn ${theme ? "btn-dark" : "btn-light"} ms-auto mt-auto`}
           disabled={!value.trim() || loading}
           onClick={handleComment}
         >
-          {loading ? <Loader color="black" /> : "Post"}
+          {loading ? <Loader color={theme ? "black" : "white"} /> : "Post"}
         </button>
       </div>
     </div>

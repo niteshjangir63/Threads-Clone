@@ -4,7 +4,9 @@ import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext";
 import Create from "../create-post/Create";
 import { NotificationContext } from "../../context/NotificationContext";
+import { useTheme } from "../../context/Appearance";
 export default function BottomNav({ handleClick }) {
+    const {theme} = useTheme();
     const { authUser } = useContext(AuthContext)
     const { unreadCount } = useContext(NotificationContext)
     const navigate = useNavigate();
@@ -27,7 +29,7 @@ export default function BottomNav({ handleClick }) {
 
         <>
 
-            <div className="bottom-navbar">
+            <div className={`bottom-navbar ${theme ? "nav-light-theme" : "nav-dark-theme"}`}>
 
 
                 <ul className="links" >

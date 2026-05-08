@@ -1,10 +1,16 @@
-import "./Input.css"
+import { useTheme } from "../../context/Appearance";
+import "./Input.css";
 
 export default function Input({ value, onChange }) {
 
-  return (
+  const { theme } = useTheme();
 
-    <div className="search-container mb-2">
+  return (
+    <div
+      className={`search-container mb-2 ${
+        theme ? "light-input" : "dark-input"
+      }`}
+    >
 
       <i className="fa-solid fa-magnifying-glass search-icon"></i>
 
@@ -15,11 +21,14 @@ export default function Input({ value, onChange }) {
         className="search-input"
         placeholder="Search"
       />
+
       {value && (
-  <i className="fa-solid fa-xmark clear-btn" onClick={() => onChange({target:{value:""}})}></i>
-)}
+        <i
+          className="fa-solid fa-xmark clear-btn"
+          onClick={() => onChange({ target: { value: "" } })}
+        ></i>
+      )}
 
     </div>
-
-  )
+  );
 }

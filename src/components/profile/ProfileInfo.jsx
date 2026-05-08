@@ -1,7 +1,9 @@
 import {toast} from "react-hot-toast";
 import "./ProfileHeader.css"
+import { useTheme } from "../../context/Appearance";
 export default function ProfileInfo({profileData}) {
 
+    const {theme} = useTheme();
 
     function copyLink(){
 
@@ -15,7 +17,7 @@ export default function ProfileInfo({profileData}) {
 
         <>
 
-            <div className="d-flex flex-col text-light m-2">
+            <div className={`d-flex flex-col ${theme ? "text-dark" : "text-light"} m-2`}>
 
                 <p className="ml-auto follower">{profileData.followers.length} {profileData.followers.length > 1 ? "followers" : "follower"} </p>
                 <div className="profileLinks ms-auto d-flex gap-3">
@@ -28,7 +30,7 @@ export default function ProfileInfo({profileData}) {
 
                     <div className="dropdown ms-auto">
                         <button
-                            className="btn text-light border-0"
+                            className={`btn text-light border-0 ${theme ? "text-dark" : "text-light"}`}
                             type="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"

@@ -9,9 +9,11 @@ import { AuthContext } from './context/AuthContext';
 
 
 
+
 function App() {
 
   const {authUser} = useContext(AuthContext);
+  
 
 
   useEffect(()=>{
@@ -39,9 +41,12 @@ function App() {
 
 
 
+
+
+
   return (
     <>
-
+      
       <Toaster position='top-center' />
 
       <Navbar />

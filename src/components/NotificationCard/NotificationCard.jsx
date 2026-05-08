@@ -1,15 +1,14 @@
 import React from "react";
 import "./NotificationCard.css";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/Appearance";
 
 export default function NotificationCard({ data, onRead }) {
+  const { theme } = useTheme();
+
   if (!data) return null;
 
-
-
   const sender = data.senderId;
-
-  console.log(sender)
 
   const getMessage = () => {
     switch (data.type) {
@@ -37,21 +36,18 @@ export default function NotificationCard({ data, onRead }) {
       })
     : "";
 
-
-
-
-
-
-
-
-    
-
   return (
     <div
-      className={`notification-card ${!data.isRead ? "unread" : ""}`}
+      className={`notification-card ${
+        theme ? "light-notification" : "dark-notification"
+      } ${!data.isRead ? "unread" : ""}`}
       onClick={handleClick}
     >
-      <Link className="avatar-wrapper" to={`https://threadsweb-psi.vercel.app/profile/${sender.username}`} style={{textDecoration:"none"}}>
+      <Link
+        className="avatar-wrapper"
+        to={`/profile/${sender?.username}`}
+        style={{ textDecoration: "none" }}
+      >
         <img
           src={sender?.profile}
           alt="profile"
@@ -65,7 +61,11 @@ export default function NotificationCard({ data, onRead }) {
         </span>
       </Link>
 
-      <Link className="notification-content" to={data.postId && `https://threadsweb-psi.vercel.app/post/${data.postId}`} style={{textDecoration:"none"}}>
+      <Link
+        className="notification-content"
+        to={data.postId ? `/post/${data.postId}` : `/profile/${sender?.username}`}
+        style={{ textDecoration: "none" }}
+      >
         <p className="notification-text">
           <span className="notification-username">
             {sender?.username || "Someone"}
@@ -82,15 +82,14 @@ export default function NotificationCard({ data, onRead }) {
       </Link>
 
       {data.type === "FOLLOW" && (
-        <button
-          className="follow-btn"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <button className="follow-btn" onClick={(e) => e.stopPropagation()}>
           Follow
         </button>
       )}
+
       {!data.isRead && <div className="notification-dot"></div>}
-      <i class="fa-solid fa-trash text-danger dltIcon"></i>
+
+      <i className="fa-solid fa-trash text-danger dltIcon"></i>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Loader from "../loader/Loader";
+import { useTheme } from "../../context/Appearance";
 
 export default function PostHeader({ postInfo }) {
 
@@ -16,6 +17,7 @@ export default function PostHeader({ postInfo }) {
   const [deleting, setDeleting] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const {theme} = useTheme();
 
   const { authUser } = useContext(AuthContext);
   const { removePost } = usePosts();
@@ -170,7 +172,7 @@ export default function PostHeader({ postInfo }) {
       </span>
 
       <Link
-        className="ms-2 mb-0 text-decoration-none text-light"
+        className={`ms-2 mb-0 text-decoration-none ${ theme ? "text-dark" : "text-light"}`}
         to={`/profile/${postInfo?.author?.username}`}
       >
         {postInfo?.author?.username}
@@ -190,7 +192,7 @@ export default function PostHeader({ postInfo }) {
 
       <div className="dropdown ms-auto">
         <button
-          className="btn text-light border-0"
+          className={`btn ${theme ? "text-dark" : "text-light"} border-0 `}
           type="button"
           data-bs-toggle="dropdown"
         >

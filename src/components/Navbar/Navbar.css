@@ -1,149 +1,129 @@
 .Nav-bar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    width: 80px;
-    background-color: #0A0A0A;
-    /* z-index: 1; */
-    
-}
-
-
-
-
-
-
-.logo{
-    
-    color: white;
-}
-.nav-inner{
-    
-    
-    height: 90vh;
-    width: inherit;
-    background-color: inherit;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-}
-.link{
-    margin: 5px 0 5px 0;
-}
-
-
-.link > i{
-
-    
-    font-size: 1.4rem;
-    color: grey;
-}
-
-.moreMenuBtn{
-
-    font-size: 1.4rem;
-
-}
-.link:hover{
-
-   background-color:#FFFFFF14;
-    border-radius: .5rem;
-}
-
-.link:nth-child(3){
-    
-    
-    margin: 10px 0 10px 0;
-    border-radius: .5rem;
-    background-color:#FFFFFF14;
-
-}
-
-@media (max-width:825px) {
-    
-    .Nav-bar{
-        display: none;
-    }
-
-
-}
-
-
-
-.notification-btn {
-  position: relative;
-}
-
-.notification-count {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-
-  background-color: red;
-  color: white;
-
-  font-size: 11px;
-  font-weight: 600;
-
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  border-radius: 50%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 80px;
 }
 
+/* Theme */
+.light-theme{
+  background-color: #ffffff;
+  color: #000;
+}
 
+.dark-theme{
+  background-color: #0a0a0a;
+  color: #fff;
+}
 
+/* Logo */
+.light-theme .logo{
+  color: #000;
+}
 
+.dark-theme .logo{
+  color: #fff;
+}
 
+/* Inner */
+.nav-inner{
+  height: 90vh;
+  width: inherit;
+  background-color: inherit;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-
-
-
-
-
-
-
-/* Dropdown container spacing */
-.link {
+/* Links */
+.link{
+  margin: 5px 0;
   position: relative;
+  color: inherit;
+  text-decoration: none;
 }
 
-/* Icon button */
-.moreMenuBtn {
+.link > i,
+.link i{
+  font-size: 1.4rem;
+  color: inherit;
+}
+
+.light-theme .link:hover{
+  background-color: rgba(0,0,0,0.06);
+  border-radius: 0.5rem;
+}
+
+.dark-theme .link:hover{
+  background-color: #ffffff14;
+  border-radius: 0.5rem;
+}
+
+.light-theme .link:nth-child(3){
+  background-color: rgba(0,0,0,0.06);
+}
+
+.dark-theme .link:nth-child(3){
+  background-color: #ffffff14;
+}
+
+/* More menu icon */
+.moreMenuBtn{
   font-size: 20px;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.moreMenuBtn:hover {
+.moreMenuBtn:hover{
   transform: scale(1.1);
-  color: #ccc;
 }
 
-/* Dropdown box */
-.custom-dropdown {
-  min-width: 160px;
+/* Notification */
+.notification-btn{
+  position: relative;
+}
+
+.notification-count{
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background-color: red;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* Dropdown */
+.custom-dropdown{
+  min-width: 170px;
   border-radius: 12px;
   padding: 6px;
-  background: #0f0f0f;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
-/* Common dropdown items */
-.dropdown-item {
+.dark-theme .custom-dropdown{
+  background: #0f0f0f;
+}
+
+.light-theme .custom-dropdown{
+  background: #ffffff;
+  border: 1px solid #ddd;
+}
+
+.dropdown-item{
   display: flex;
   align-items: center;
   gap: 10px;
@@ -153,30 +133,34 @@
   font-size: 14px;
 }
 
-/* Hover effect */
-
-
-/* Logout (danger style) */
-.logout-btn {
-  color: #ff4d4f;
+.light-theme .dropdown-item{
+  color: #000;
 }
 
-.logout-btn:hover {
-  background: rgba(255, 77, 79, 0.1);
-  color: #ff7875;
-}
-
-/* Login style */
-.login-btn {
+.dark-theme .dropdown-item{
   color: #fff;
 }
 
-.login-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+.logout-btn{
+  color: #ff4d4f !important;
 }
 
-/* Smooth dropdown animation */
-.dropdown-menu {
-  animation: fadeIn 0.2s ease;
+.logout-btn:hover{
+  background: rgba(255,77,79,0.1);
+  color: #ff7875 !important;
 }
 
+.login-btn:hover{
+  background: rgba(255,255,255,0.08);
+}
+
+.light-theme .login-btn:hover{
+  background: rgba(0,0,0,0.06);
+}
+
+/* Mobile */
+@media (max-width:825px){
+  .Nav-bar{
+    display: none;
+  }
+}

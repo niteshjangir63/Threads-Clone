@@ -1,4 +1,5 @@
 
+import { useTheme } from "../../context/Appearance";
 import "./Post.css"
 import PostActions from "./PostActions";
 import PostFeed from "./PostFeed";
@@ -6,6 +7,7 @@ import PostHeader from "./PostHeader";
 
 
 export default function Post({ post }) {
+    const {theme} = useTheme();
 
 
     if(!post) return;
@@ -27,7 +29,7 @@ export default function Post({ post }) {
 
 
             </div>
-            <hr />
+            <hr style={{color: theme ? "black" : "white"}}/>
 
         </>
     )

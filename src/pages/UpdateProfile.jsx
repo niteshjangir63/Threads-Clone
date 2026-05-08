@@ -4,9 +4,11 @@ import Loader from "../components/loader/Loader";
 import { useNavigate } from "react-router-dom";
 import "./UpdateProfile.css"
 import {toast} from "react-hot-toast";
+import { useTheme } from "../context/Appearance";
 export default function UpdateProfile() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const {theme} = useTheme();
     const [form, setForm] = useState({
         username: "",
         name: "",
@@ -74,7 +76,7 @@ export default function UpdateProfile() {
 
     return (
         <>
-            <h5 className="text-light mb-3 fw-semibold">Edit Profile</h5>
+            <h5 className={`${theme ? "text-dark" : "text-light"} mb-3 fw-semibold`}>Edit Profile</h5>
 
             {  loading ? <Loader/> : <div className="threads-form text-light d-flex flex-column text-start">
 
@@ -86,7 +88,7 @@ export default function UpdateProfile() {
                         name="username"
                         value={form.username}
                         onChange={handleForm}
-                        className="threads-input"
+                        className={`threads-input ${theme ? "light-input" : "dark-input"}`}
                         placeholder="Username"
                     />
                 </div>
@@ -98,7 +100,7 @@ export default function UpdateProfile() {
                         name="name"
                         value={form.name}
                         onChange={handleForm}
-                        className="threads-input"
+                        className={`threads-input ${theme ? "light-input" : "dark-input"}`}
                         placeholder="Name"
                     />
                 </div>
@@ -109,18 +111,18 @@ export default function UpdateProfile() {
                         name="bio"
                         value={form.bio}
                         onChange={handleForm}
-                        className="threads-input"
+                        className={`threads-input ${theme ? "light-input" :"dark-input"}`}
                         rows="3"
                         placeholder="Write something..."
                     />
                 </div>
 
                 <button
-                    className="threads-btn w-100"
+                    className={`threads-btn w-100 ${theme ? "button-light" : "button-dark"}`}
                     onClick={handleUpdate}
                     disabled={loading}
                 >
-                    {loading ? <Loader /> : "Save"}
+                    {loading ? <Loader color={theme ? "black" :"white"}/> : "Save"}
                 </button>
 
             </div>

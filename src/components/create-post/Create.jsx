@@ -90,12 +90,14 @@ import { useState, useEffect } from "react";
 import { usePosts } from "../../context/PostContext";
 import toast from "react-hot-toast";
 import API from "../../api/axios"; // ✅ use this
+import { useTheme } from "../../context/Appearance";
 
 export default function Create({ setDisplay }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   const [form, setForm] = useState({ content: "", file: null });
   const { addPost } = usePosts();
+  const {theme} = useTheme();
 
   useEffect(() => {
     setForm((prev) => ({
@@ -152,8 +154,8 @@ export default function Create({ setDisplay }) {
     },[]);
 
   return (
-    <div className="Outer-Container" onClick={handleOuterClick}>
-      <div className="inner-container text-light p-3">
+    <div className={`Outer-Container ${theme ? "light-outer-container" : "dark-outer-container"}`} onClick={handleOuterClick}>
+      <div className={`inner-container text-light p-3 ${theme ? "light-inner-container" : "dark-inner-container"}`}>
         <CreateHeader />
         <CreateMid setData={setData} />
 

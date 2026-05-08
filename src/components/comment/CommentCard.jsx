@@ -4,10 +4,12 @@ import Dropdown from "../Dropdown/Dropdown";
 import CommentActions from "../CommentActions/CommentActions";
 import { useComments } from "../../context/CommentContext";
 import { useEffect, useState } from "react";
+import { useTheme } from "../../context/Appearance";
 
 
 function timeAgo(timestamp) {
   const now = new Date();
+
   const seconds = Math.floor((now - new Date(timestamp)) / 1000);
 
   if (seconds < 60) return "just now";
@@ -33,6 +35,7 @@ function timeAgo(timestamp) {
 
 export default function CommentCard({ userId, content }) {
   const { deleteComment } = useComments();
+  const {theme} = useTheme();
 
   
   const [, forceUpdate] = useState(0);
@@ -68,7 +71,7 @@ export default function CommentCard({ userId, content }) {
             <div className="d-flex align-items-center gap-2">
               <Link
                 to={`/profile/${userId.username}`}
-                className="text-decoration-none text-light fw-semibold"
+                className={`text-decoration-none ${theme ? "text-dark" : "text-light"} fw-semibold`}
               >
                 {userId.username}
               </Link>
@@ -79,7 +82,7 @@ export default function CommentCard({ userId, content }) {
             </div>
 
             
-            <span style={{ wordBreak: "break-word" }}>
+            <span className={` ${theme ? "text-dark" : "text-light"}`} style={{ wordBreak: "break-word" }}>
               {content.content}
             </span>
           </div>

@@ -2,6 +2,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext, useState, useEffect } from "react";
 import { handleFollow } from "../../api/postApi";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/Appearance";
 
 export default function ProfileActions({ profileData }) {
 
@@ -9,6 +10,7 @@ export default function ProfileActions({ profileData }) {
     const [loading, setLoading] = useState(false);
 
     const { authUser } = useContext(AuthContext);
+    const {theme} = useTheme();
 
     useEffect(() => {
         if (authUser && profileData?.followers) {
@@ -40,18 +42,18 @@ export default function ProfileActions({ profileData }) {
         <div className="d-flex flex-col m-2 mt-4 gap-2">
 
             {profileData._id === authUser._id ? (
-                <Link className="btn btn-light col ml-auto" to={"/update/profile"}>Edit</Link>
+                <Link className={`btn ${theme ? "btn-dark" : "btn-light"} col ml-auto`} to={"/update/profile"}>Edit</Link>
             ) : (
                 <>
                     <button
-                        className="btn btn-light col-6 ml-auto"
+                        className={`btn ${theme ? "btn-dark" : "btn-light"}  col-6 ml-auto`}
                         onClick={() => handleFollowing(profileData._id)}
                         disabled={loading}
                     >
                         {isFollow ? "Following" : "Follow"}
                     </button>
 
-                    <button className="btn btn-outline-light ms-auto col-6 ml-2">
+                    <button className={`btn ${theme ? "btn-outline-dark" : "btn-outline-light"} ms-auto col-6 ml-2`}>
                         Mention
                     </button>
                 </>

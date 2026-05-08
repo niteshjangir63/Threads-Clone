@@ -8,6 +8,8 @@ import API from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 import "./Profile.css"
 import { usePosts } from "../context/PostContext";
+import Toggle from "../components/Toggle/Toggle";
+import { useTheme } from "../context/Appearance";
 
 export default function Profile() {
   const { username } = useParams();
@@ -17,6 +19,7 @@ export default function Profile() {
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [msg, setMsg] = useState("");
+  const {theme} = useTheme();
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -106,30 +109,41 @@ export default function Profile() {
 
 
       {authUser?._id === profile?._id && (
-        <div
-          className="dropdown d-flex ms-auto"
-          id="settingBtn"
-          title="More"
-        >
-          <button
-            className="btn text-light border-0"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i className="fa-solid fa-gear"></i>
-          </button>
+  <div
+    className="dropdown d-flex ms-auto"
+    id="settingBtn"
+    title="More"
+  >
+    <button
+      className={`btn ${theme ? "text-dark" : "text-light"} border-0`}
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i className="fa-solid fa-gear"></i>
+    </button>
 
-          <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
-            <li>
-              <button className="dropdown-item logout-btn" onClick={logout}>
-                <i className="fa-solid fa-right-from-bracket"></i> Logout
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
+    <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
 
+      {/* Theme Toggle */}
+      <li
+        className="dropdown-item d-flex justify-content-between align-items-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <span>Theme</span>
+        <Toggle />
+      </li>
+
+      {/* Logout */}
+      <li>
+        <button className="dropdown-item logout-btn" onClick={logout}>
+          <i className="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+      </li>
+
+    </ul>
+  </div>
+)}
       {(loadingProfile) && <Loader size="lg" />}
 
       {profile ? (

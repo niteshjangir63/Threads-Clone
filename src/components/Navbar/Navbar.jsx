@@ -6,8 +6,12 @@ import { AuthContext } from "../../context/AuthContext"
 import { NotificationContext } from "../../context/NotificationContext"
 import API from "../../api/axios"
 import toast from "react-hot-toast"
+import { useTheme } from "../../context/Appearance"
+import Toggle from "../Toggle/Toggle"
 export default function Navbar() {
     const { authUser } = useContext(AuthContext)
+    const { theme } = useTheme()
+
     const { unreadCount } = useContext(NotificationContext)
     const navigate = useNavigate();
     let icons = [<i className="fa-solid fa-house"></i>, <i className="fa-solid fa-magnifying-glass"></i>, <i className="fa-solid fa-plus"></i>, <i className="fa-regular fa-heart"></i>, <i className="fa-solid fa-circle-user"></i>]
@@ -65,7 +69,7 @@ export default function Navbar() {
 
 
         <>
-            <div className="container Nav-bar ">
+            <div className={`container Nav-bar ${theme ? "light-theme" : "dark-theme"}`} >
                 <h1 className="mt-5 mb-5 logo"><i className="fa-brands fa-threads"></i></h1>
                 <div className="col nav-inner">
 
@@ -108,34 +112,47 @@ export default function Navbar() {
 
                         <Link className="link p-3" to={"/pin"}><i className="fa-solid fa-thumbtack"></i></Link>
 
-                        <div  className="dropdown link p-3">
-                            <button
-                                className="btn text-light border-0"
-                                type="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                            <i className="fa-solid fa-bars-staggered moreMenuBtn"></i>
-                            </button>
+                        <div className="dropdown link p-3">
+  <button
+    className={`btn border-0`}
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <i className={`fa-solid fa-bars-staggered moreMenuBtn ${theme ? "text-dark" : "text-light"}`}></i>
+  </button>
 
-                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark custom-dropdown">
-  {authUser && (
-    <li>
-      <button className="dropdown-item logout-btn" onClick={logout}>
-        <i className="fa-solid fa-right-from-bracket"></i> Logout
-      </button>
-    </li>
-  )}
+  <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark custom-dropdown">
 
-  {!authUser && (
-    <li>
-      <button className="dropdown-item login-btn" onClick={() => navigate("/login")}>
-        <i className="fa-solid fa-right-to-bracket"></i> Login
-      </button>
+    <li
+      className="dropdown-item d-flex justify-content-between align-items-center"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <span>Theme</span>
+      <Toggle />
     </li>
-  )}
-</ul>
-                        </div>
+
+    {authUser && (
+      <li>
+        <button className="dropdown-item logout-btn" onClick={logout}>
+          <i className="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+      </li>
+    )}
+
+    {!authUser && (
+      <li>
+        <button
+          className="dropdown-item login-btn"
+          onClick={() => navigate("/login")}
+        >
+          <i className="fa-solid fa-right-to-bracket"></i> Login
+        </button>
+      </li>
+    )}
+    
+  </ul>
+</div>
 
                     </ul>
                 </div>
