@@ -2,78 +2,54 @@ import { Link } from "react-router-dom";
 import Skeleton from "../skeleton/Skeleton";
 import "./Post.css";
 import { useState } from "react";
-import { getPostById } from "../../api/postApi";
 import ImagePreview from "../Image-Preview/ImagePreview";
-import toast from "react-hot-toast";
 import { useTheme } from "../../context/Appearance";
 
 export default function PostFeed({ postInfo }) {
-
   const [loader, setLoader] = useState(false);
   const [image, setImage] = useState(null);
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
-
-
-  const showImageFullScreen = (id) => {
-
-    setImage(`${postInfo.image}`);
-
+  const showImageFullScreen = () => {
+    setImage(postInfo.image);
   };
-
-
-  function closeImagePreviewImage(e) {
-
-    if (e.target === e.currentTarget) {
-
-      setImage(null)
-    }
-  }
 
   return (
     <>
       <Link
         to={`/post/${postInfo._id}`}
-        className={`text-start d-flex mb-2 mt-2 ${theme ? "text-dark ":"text-light"} text-decoration-none`}
+        className={`text-start d-flex mb-2 mt-2 ${
+          theme ? "text-dark" : "text-light"
+        } text-decoration-none`}
       >
         {postInfo.content}
       </Link>
 
       {postInfo.image && (
-        <div className="col-6 post" onClick={() => showImageFullScreen(postInfo._id)}>
-
+        <div className="col-6 post" onClick={showImageFullScreen}>
           {!loader && <Skeleton />}
 
           <img
-            src={`${postInfo.image}`}
-            alt="image"
+            src={postInfo.image}
+            alt="post"
             onLoad={() => setLoader(true)}
             style={{
               opacity: loader ? 1 : 0,
-              transition: "opacity 0.4s ease"
+              transition: "opacity 0.4s ease",
             }}
           />
-
         </div>
       )}
 
-      {image && <div className="imageOverlay" onClick={(e) => closeImagePreviewImage(e)}>
-
-        <button
-          className="btn btn-dark border-0 closeBtn"
-          onClick={(e) => {
-            closeImagePreviewImage(e)
-            e.stopPropagation();
-            setPreview(null);
-          }}
-        >
-          ✕
-        </button>
-
-        <ImagePreview image={image} heights={100} />
-
-      </div>}
+      {image && (
+        <ImagePreview
+          image={image}
+          setPreview={setImage}
+          heights={90}
+          width={500}
+          radius={12}
+        />
+      )}
     </>
-
   );
 }

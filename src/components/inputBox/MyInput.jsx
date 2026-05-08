@@ -1,8 +1,28 @@
-import { useTheme } from "../../context/Appearance"
+import { useTheme } from "../../context/Appearance";
 
-export default function MyInput({value,onChange}){
+export default function MyInput({
+  value,
+  onChange,
+  onKeyDown,
+  placeholder = "Add comments",
+}) {
 
-    const {theme} = useTheme();
+  const { theme } = useTheme();
 
-    return <input className={`order-0 bg-transparent ml-auto mt-auto w-100 ${theme ? "text-dark" : "text-light"}`} placeholder="Add comments" value={value} onChange={onChange} style={{outline:"none"}}/>
+  return (
+    <input
+      type="text"
+      className={`order-0 bg-transparent border-0 w-100 ml-auto mt-auto ${
+        theme ? "text-dark" : "text-light"
+      }`}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+      style={{
+        outline: "none",
+        boxShadow: "none",
+      }}
+    />
+  );
 }
