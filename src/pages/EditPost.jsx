@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { getProfile, updateProfile } from "../api/profileApi";
-import Loader from "../components/loader/Loader";
 import { useNavigate, useParams } from "react-router-dom";
-import "./UpdateProfile.css"
 import { toast } from "react-hot-toast";
+
+import Loader from "../components/loader/Loader";
+import ImagePreview from "../components/Image-Preview/ImagePreview";
+
 import { editPost, getPostById } from "../api/postApi";
-import ImagePreview from "../components/Image-Preview/ImagePreview"; "src\components\Image-Preview\ImagePreview.jsx"
+
+import "./EditPost.css";
+
 export default function EditPost() {
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -18,6 +22,10 @@ export default function EditPost() {
 
   const [image, setImage] = useState(null);
 
+  // Controls whether fullscreen image preview is open
+  const [preview, setPreview] = useState(null);
+
+  // Fetch post
   useEffect(() => {
     const fetchPost = async () => {
       setLoading(true);
@@ -25,15 +33,20 @@ export default function EditPost() {
       try {
         const res = await getPostById(id);
 
+        const post = res.data.post;
+
         setForm({
           id: id,
-          content: res.data.post.content || "",
+          content: post.content || "",
         });
 
-        setImage(res.data.post.image);
+        setImage(post.image || null);
       } catch (e) {
         console.log(e);
-        toast.error(e.response?.data?.message || "Post not found");
+
+        toast.error(
+          e.response?.data?.message || "Post not found"
+        );
       } finally {
         setLoading(false);
       }
@@ -42,6 +55,15 @@ export default function EditPost() {
     fetchPost();
   }, [id]);
 
+  // Handle input
+  const handleForm = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  // Update post
   const handleUpdate = async (e) => {
     e.preventDefault();
 
@@ -50,33 +72,38 @@ export default function EditPost() {
     try {
       const res = await editPost(form);
 
-      toast.success(res.data.message || "Post updated");
+      toast.success(
+        res.data.message || "Post updated"
+      );
+
       navigate(`/post/${id}`);
     } catch (e) {
-      toast.error(e.response?.data?.message || "Update failed");
       console.log(e);
+
+      toast.error(
+        e.response?.data?.message || "Update failed"
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const handleForm = (e) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
   return (
     <>
-      <h5 className="text-light mb-3 fw-semibold">Edit Post</h5>
+      <h5 className="text-light mb-3 fw-semibold">
+        Edit Post
+      </h5>
 
       {loading ? (
         <Loader />
       ) : (
         <div className="threads-form text-light d-flex flex-column text-start">
+
+          {/* Caption */}
           <div className="mb-2">
-            <label className="threads-label">Caption</label>
+            <label className="threads-label">
+              Caption
+            </label>
 
             <textarea
               name="content"
@@ -87,13 +114,24 @@ export default function EditPost() {
             />
           </div>
 
+          {/* Existing Image */}
           {image && (
-            <div className="mb-2">
-              <ImagePreview image={image} height={300} width={200} />
+            <div
+              className="mb-2"
+              id="edit-image-preview"
+            >
+              <img
+                src={image}
+                alt="Post"
+                className="edit-post-image"
+                onClick={() => setPreview(image)}
+              />
             </div>
           )}
 
+          {/* Update */}
           <button
+            type="button"
             className="threads-btn w-100 mb-15"
             onClick={handleUpdate}
             disabled={loading}
@@ -101,6 +139,16 @@ export default function EditPost() {
             {loading ? <Loader /> : "Update"}
           </button>
         </div>
+      )}
+
+      {/* Fullscreen Image Preview */}
+      {preview && (
+        <ImagePreview
+          image={preview}
+          height={500}
+          width={400}
+          setPreview={setPreview}
+        />
       )}
     </>
   );

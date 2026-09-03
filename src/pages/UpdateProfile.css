@@ -60,3 +60,12 @@ background: #ffffff;
 .threads-btn:hover {
   background: #ddd;
 }
+
+.edit-post-image {
+  width: 200px;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 12px;
+  cursor: pointer;
+  
+}
