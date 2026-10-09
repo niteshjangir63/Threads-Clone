@@ -64,7 +64,7 @@ export default function CreateBottom(props) {
       formData.append("tone", "casual");
 
       const response = await fetch(
-        "http://localhost:5000/api/ai/caption",
+        `https://threadsclone-42y4.onrender.com/api/ai/caption`,
         {
           method: "POST",
           body: formData,
