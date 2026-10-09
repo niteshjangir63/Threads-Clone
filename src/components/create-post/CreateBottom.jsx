@@ -64,11 +64,10 @@ export default function CreateBottom(props) {
       formData.append("tone", "casual");
 
       const response = await fetch(
-        "https://threadsclone-42y4.onrender.com/api/ai/caption",
+        `https://threadsclone-42y4.onrender.com/api/ai/caption`,
         {
           method: "POST",
           body: formData,
-          credentials: "include",
         }
       );
 
