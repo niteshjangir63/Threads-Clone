@@ -210,3 +210,192 @@
 .no-scroll{
   overflow: hidden !important;
 }
+
+
+
+
+/* ai css */
+
+.ai-caption-wrapper {
+  margin: 10px 0;
+}
+
+.ai-caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 10px;
+  border-radius: 20px;
+
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ai-caption i {
+  font-size: 13px;
+}
+
+.ai-caption:hover {
+  background: #f2f2f2;
+  color: #000;
+}
+
+.ai-caption:active {
+  transform: scale(0.95);
+}
+
+
+
+
+
+/* AI Caption Wrapper */
+.ai-caption-wrapper {
+  margin: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeInUp 0.45s ease both;
+}
+
+/* Generate Captions Button */
+.ai-caption {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: fit-content;
+  padding: 11px 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+.ai-caption:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(99, 102, 241, 0.35);
+  filter: brightness(1.08);
+}
+
+.ai-caption:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.ai-caption:focus-visible,
+.ai-caption-option:focus-visible {
+  outline: 3px solid rgba(129, 140, 248, 0.55);
+  outline-offset: 3px;
+}
+
+.ai-caption:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Caption Results Container */
+.ai-caption-results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeInUp 0.35s ease both;
+}
+
+/* Individual Caption Options */
+.ai-caption-option {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  padding: 13px 15px;
+
+  color: #272447;
+  background: linear-gradient(135deg, #ffffff, #f5f3ff);
+  border: 1px solid #e0dcff;
+  border-radius: 14px;
+
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: left;
+  overflow-wrap: anywhere;
+
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease;
+}
+
+.ai-caption-option:hover {
+  transform: translateX(4px);
+  border-color: #8b5cf6;
+  background: linear-gradient(135deg, #f5f3ff, #eef2ff);
+  box-shadow: 0 5px 16px rgba(99, 102, 241, 0.12);
+}
+
+.ai-caption-option:active {
+  transform: scale(0.99);
+}
+
+/* Smooth entrance animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .ai-caption-wrapper,
+  .ai-caption-results {
+    animation: none;
+  }
+
+  .ai-caption,
+  .ai-caption-option {
+    transition: none;
+  }
+
+  .ai-caption:hover:not(:disabled),
+  .ai-caption-option:hover {
+    transform: none;
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .ai-caption-option {
+    color: #e9e7ff;
+    background: linear-gradient(135deg, #201c35, #1b2340);
+    border-color: #403761;
+  }
+
+  .ai-caption-option:hover {
+    background: linear-gradient(135deg, #30254d, #242e50);
+    border-color: #a78bfa;
+  }
+}

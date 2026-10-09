@@ -1,86 +1,3 @@
-// import axios from "axios";
-// import "./Create.css"
-// import CreateBottom from "./CreateBottom"
-// import CreateHeader from "./CreateHeader"
-// import CreateMid from "./CreateMid"
-// import { useState, useEffect } from "react";
-// import { usePosts } from "../../context/PostContext";
-// import toast from "react-hot-toast";
-
-// export default function Create({ setDisplay }) {
-//     const [loading, setLoading] = useState(false);
-//     const [data, setData] = useState(null);
-//     const [form, setForm] = useState({ content: "", file: null });
-//     const { addPost } = usePosts();
-
-//     useEffect(() => {
-//         setForm(prev => ({
-//             ...prev,
-//             content: data
-//         }));
-//     }, [data]);
-
-    
-//     function handleOuterClick(e) {
-//         if (e.target === e.currentTarget) {
-//             setDisplay(prev => !prev)
-//         }
-//     }
-
-//     const handleCreate = async () => {
-//         try {
-//             if (form.content || form.file) {
-
-//                 setLoading(true);
-
-//                 const formData = new FormData();
-//                 formData.append("content", form.content);
-
-//                 if (form.file) {
-//                     formData.append("image", form.file);
-//                 }
-
-//                 const res = await axios.post(
-//                     "https://threadsclone-42y4.onrender.com/create",
-//                     formData,
-//                     {
-//                         withCredentials: true
-//                     }
-//                 );
-
-//                 if (res?.data?.success) {
-//                     toast.success(res.data.message)
-//                     addPost(res.data.post);
-//                     setDisplay(prev => !prev);
-//                 }
-
-//             }
-//         } catch (e) {
-           
-//             toast.error(e.response.data.message)
-//         } finally {
-//             setLoading(false);
-//         }
-//     }
-
-//     return (
-//         <div className="Outer-Container" onClick={handleOuterClick}>
-//             <div className="inner-container text-light p-3">
-
-//                 <CreateHeader />
-//                 <CreateMid setData={setData} />
-
-//                 <CreateBottom
-//                     handleCreate={handleCreate}
-//                     setForm={setForm}
-//                     loading={loading}
-//                 />
-
-//             </div>
-//         </div>
-//     )
-// }
-
 
 import "./Create.css";
 import CreateBottom from "./CreateBottom";
@@ -89,22 +6,18 @@ import CreateMid from "./CreateMid";
 import { useState, useEffect } from "react";
 import { usePosts } from "../../context/PostContext";
 import toast from "react-hot-toast";
-import API from "../../api/axios"; // ✅ use this
+import API from "../../api/axios";
 import { useTheme } from "../../context/Appearance";
 
 export default function Create({ setDisplay }) {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(null);
-  const [form, setForm] = useState({ content: "", file: null });
-  const { addPost } = usePosts();
-  const {theme} = useTheme();
+  const [form, setForm] = useState({
+    content: "",
+    file: null,
+  });
 
-  useEffect(() => {
-    setForm((prev) => ({
-      ...prev,
-      content: data,
-    }));
-  }, [data]);
+  const { addPost } = usePosts();
+  const { theme } = useTheme();
 
   function handleOuterClick(e) {
     if (e.target === e.currentTarget) {
@@ -113,55 +26,74 @@ export default function Create({ setDisplay }) {
   }
 
   const handleCreate = async () => {
+    if (!form.content.trim() && !form.file) {
+      toast.error("Please add some text or an image.");
+      return;
+    }
+
     try {
-      if (form.content || form.file) {
-        setLoading(true);
+      setLoading(true);
 
-        const formData = new FormData();
-        formData.append("content", form.content);
+      const formData = new FormData();
+      formData.append("content", form.content);
 
-        if (form.file) {
-          formData.append("image", form.file);
-        }
+      if (form.file) {
+        formData.append("image", form.file);
+      }
 
-        
-        const res = await API.post("/create", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+      const res = await API.post("/create", formData, {
+        withCredentials: true,
+      });
 
-        if (res?.data?.success) {
-          toast.success(res.data.message);
-          addPost(res.data.post);
-          setDisplay((prev) => !prev);
-        }
+      if (res?.data?.success) {
+        toast.success(res.data.message);
+        addPost(res.data.post);
+        setDisplay(false);
       }
     } catch (e) {
-      toast.error(e?.response?.data?.message || "Post failed");
+      toast.error(
+        e?.response?.data?.message || "Post failed"
+      );
     } finally {
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
 
-  useEffect(()=> {
-
-        document.body.style.overflow = "hidden";
-
-        return () =>{document.body.style.overflow ="auto"} 
-
-    },[]);
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   return (
-    <div className={`Outer-Container ${theme ? "light-outer-container" : "dark-outer-container"}`} onClick={handleOuterClick}>
-      <div className={`inner-container text-light p-3 ${theme ? "light-inner-container" : "dark-inner-container"}`}>
+    <div
+      className={`Outer-Container ${
+        theme ? "light-outer-container" : "dark-outer-container"
+      }`}
+      onClick={handleOuterClick}
+    >
+      <div
+        className={`inner-container p-3 ${
+          theme ? "light-inner-container" : "dark-inner-container"
+        }`}
+      >
         <CreateHeader />
-        <CreateMid setData={setData} />
+
+        <CreateMid
+          content={form.content}
+          setData={(content) =>
+            setForm((prev) => ({
+              ...prev,
+              content,
+            }))
+          }
+        />
 
         <CreateBottom
-          handleCreate={handleCreate}
           setForm={setForm}
+          handleCreate={handleCreate}
           loading={loading}
         />
       </div>
