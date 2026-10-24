@@ -1,0 +1,45 @@
+.top-post-create-box{
+position: sticky;
+top: -3%;
+backdrop-filter: blur(20px);
+background-color: #1e1e1e89;
+    display: flex; 
+    gap: 10px;
+    padding: 30px;
+    margin: -16px !important;
+    z-index: 9999;
+    border-bottom:solid .3px rgba(128, 128, 128, 0.51) ;
+    margin-bottom: 10px !important;
+    
+}
+
+.inner-top-post{
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: start;
+    /* width:100; */
+}
+
+
+.top-post-input-box > button{
+    margin-right:auto !important;
+}
+.inner-top-post > input{
+
+  width: 100%;  
+  background-color: transparent;
+  color: white;
+  border: none;
+  outline: none;
+
+}
+
+.top-post-input-box {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.top-post-input-box.swipe {
+    opacity: 0;
+    transform: translateY(10px);
+}
