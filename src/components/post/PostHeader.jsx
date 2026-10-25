@@ -177,6 +177,7 @@ export default function PostHeader({ postInfo }) {
       >
         {postInfo?.author?.username}
       </Link>
+      {postInfo?.author?.isVerified  && <i class="fa-solid fa-circle-check" title="verified" style={{fontSize:"14px", marginLeft:"5px", color:"lightblue",textAlign:"center" ,marginTop:"5px"}}></i>}
       <span className="ms-2 text-secondary " >{timeAgo(postInfo.createdAt)}</span>
 
       {authUser && !isOwner && (

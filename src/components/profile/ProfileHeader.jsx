@@ -62,7 +62,8 @@ export default function ProfileHeader({ profileData }) {
                     } profileHeader`}
             >
                 <div className="row ml-auto profileInner">
-                    <h3 className="text-start">{profileData.username}</h3>
+                    <h3 className="text-start">{profileData.username}  {profileData?.isVerified  && <i class="fa-solid fa-circle-check" title="verified" style={{fontSize:"14px", color:"lightblue",textAlign:"center" ,marginTop:"5px"}}></i>}</h3>
+                   
                     <span className="text-start">{profileData.name}</span>
                 </div>
 

@@ -75,6 +75,7 @@ export default function CommentCard({ userId, content }) {
               >
                 {userId.username}
               </Link>
+               {userId?.isVerified  && <i class="fa-solid fa-circle-check" title="verified" style={{fontSize:"14px", color:"lightblue",textAlign:"center" ,marginTop:"5px"}}></i>}
 
               <span style={{ fontSize: "12px", color: "#8e8e8e" }}>
                 {timeAgo(content.createdAt)}
@@ -92,7 +93,7 @@ export default function CommentCard({ userId, content }) {
         </div>
 
        
-        <CommentActions />
+        {/* <CommentActions /> */}
       </div>
 
       <hr />

@@ -1,0 +1,67 @@
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.post-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* gap: 5px; */
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+}
+
+.post-bottom-button {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.post-action-count {
+    font-size: 13px;
+    line-height: 1;
+    color: inherit;
+}
+
+.post-action:hover .post-bottom-button {
+    transform: scale(1.15);
+}
+
+.post-action.like:hover {
+    color: #ff3040;
+}
+
+.post-action.like:hover img {
+    filter: invert(25%) sepia(95%) saturate(4000%) hue-rotate(335deg);
+}
+
+.post-action.comment:hover {
+    color: #1685ff;
+}
+
+.post-action.comment:hover img {
+    filter: invert(35%) sepia(95%) saturate(2000%) hue-rotate(190deg);
+}
+
+.post-action.repost:hover {
+    color: #00a884;
+}
+
+.post-action.repost:hover img {
+    filter: invert(45%) sepia(90%) saturate(600%) hue-rotate(115deg);
+}
+
+.post-action.share:hover {
+    color: #1685ff;
+}
+
+.post-action.share:hover img {
+    filter: invert(35%) sepia(95%) saturate(2000%) hue-rotate(190deg);
+}

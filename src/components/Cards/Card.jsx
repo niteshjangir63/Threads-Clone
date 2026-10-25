@@ -23,7 +23,8 @@ export default function Card({ user, content }) {
       <div className="thread-content">
 
         <span className="thread-username d-flex">
-          {user?.username}
+          {user?.username} 
+         {user?.isVerified  && <i class="fa-solid fa-circle-check" title="verified" style={{fontSize:"14px", marginLeft:"5px", color:"lightblue",textAlign:"center" ,marginTop:"5px"}}></i>}
         </span>
 
         <span className="thread-text">

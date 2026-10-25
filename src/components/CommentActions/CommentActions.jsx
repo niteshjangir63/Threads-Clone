@@ -1,40 +1,42 @@
+import "./CommentActions.css";
+
 export default function CommentActions() {
-
     return (
+        <div className="post-actions">
 
+            <span className="post-action like" title="Like">
+                <img
+                    className="post-bottom-button"
+                    src="/svgIcons/heart.svg"
+                    alt="Like"
+                />
+                <span className="post-action-count">0</span>
+            </span>
 
-        <>
+            <span className="post-action comment" title="Comment">
+                <img
+                    className="post-bottom-button"
+                    src="/svgIcons/comment.svg"
+                    alt="Comment"
+                />
+            </span>
 
-            <div className="d-flex flex-row mt-1 gap-2">
+            <span className="post-action repost" title="Repost">
+                <img
+                    className="post-bottom-button"
+                    src="/svgIcons/repost.svg"
+                    alt="Repost"
+                />
+            </span>
 
-                <span title="Like">
-                    <img
-                        className="post-bottom-button"
-                        src="/svgIcons/heart.svg"
+            <span className="post-action share" title="Share">
+                <img
+                    className="post-bottom-button"
+                    src="/svgIcons/share.svg"
+                    alt="Share"
+                />
+            </span>
 
-                    />
-                    <span style={{ fontSize: "13px" }}>
-                        {0}
-                    </span>
-                </span>
-
-                <span title="Comment">
-                    <img className="post-bottom-button" src="/svgIcons/comment.svg" alt="comment" />
-                    <span style={{ fontSize: "13px" }}>
-
-                    </span>
-                </span>
-
-                <span title="Repost">
-                    <img className="post-bottom-button" src="/svgIcons/repost.svg" alt="repost" />
-                </span>
-
-                <span title="Share">
-                    <img className="post-bottom-button" src="/svgIcons/share.svg" alt="share" />
-                </span>
-
-            </div>
-
-        </>
-    )
+        </div>
+    );
 }
