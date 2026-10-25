@@ -1,6 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import "./TopPost.css"
+import { useTheme } from "../../context/Appearance";
+import { usePosts } from "../../context/PostContext";
+import API from "../../api/axios";
+import Loader from "../loader/Loader";
 export default function TopPost() {
     const { authUser } = useContext(AuthContext);
     const placeholder = ["Start a thread...",
@@ -11,37 +15,62 @@ export default function TopPost() {
         "Your next thread starts here..."];
 
 
-        const [title,setTitle] = useState(placeholder[0]);
-        const [animation,setAnimation] = useState(false);
-        const [content,setContent] = useState("");
+    const [title, setTitle] = useState(placeholder[0]);
+    const [animation, setAnimation] = useState(false);
+    const [form, setForm] = useState({
+        content: ""
+    });
+    const {theme} = useTheme();
+    const [loader, setLoader] = useState(false);
+    const { addPost } = usePosts();
 
-        const handleInput = (e) =>{
-            e.preventDefault();
-            setContent(e.target.value);
+    const handleSubmit = async (e) => {
+        setLoader(true);
+        e.preventDefault();
+        if (!form.content || form.content.trim() == ' ') return;
+        console.log(form.content)
+        try {
+
+            const res = await API.post("/create", form, {
+
+                withCredentials: true
+            })
+
+            addPost(res.data.post);
         }
-        useEffect(() => {    
-            const interval = setInterval(() => {
-                setAnimation(true);
-                
-                setTimeout(() =>{
+        catch (e) {
+            console.log(e);
+        }
+        finally {
+            setLoader(false);
+            setForm(() => ({ content: "" }));
+        }
 
-                    setTitle((prev) =>{
 
-                        const currIndex = placeholder.indexOf(prev);
-                        return placeholder[(currIndex + 1) % placeholder.length];
-                    });
+    }
+    console.log(form.content);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setAnimation(true);
 
-                    setAnimation(false);
-                },300)
-            },5000)
-            return () => clearInterval(interval);
-        },[])
+            setTimeout(() => {
 
-        console.log(title)
+                setTitle((prev) => {
+
+                    const currIndex = placeholder.indexOf(prev);
+                    return placeholder[(currIndex + 1) % placeholder.length];
+                });
+
+                setAnimation(false);
+            }, 300)
+        }, 5000)
+        return () => clearInterval(interval);
+    }, [])
+
     return (
 
         <>
-            <div className="d-flex flex-row align-items-center top-post-create-box">
+            <div className={`d-flex flex-row align-items-center top-post-create-box ${theme && "darkmod"}`}>
                 <span className="post-profile">
                     <img
                         src={authUser?.profile}
@@ -51,12 +80,12 @@ export default function TopPost() {
                 <div className="inner-top-post">
 
                     <span>{authUser?.username}</span>
-                    <input type="text" placeholder={title} onChange={handleInput} className={`top-post-input-box ${!content && animation ? "swipe" : ""}`}/>
+                    <input type="text" style={{color:theme? "black" : "white"}} placeholder={title} value={form.content} onChange={(e) => setForm((prev) => ({ ...prev, content: e.target.value.trimStart() }))} className={`top-post-input-box ${!form.content && animation ? "swipe" : ""}`} />
                 </div>
-                <button className="btn btn-light ms-auto">Post</button>
+                <button className={`btn ${theme ? "btn-dark" : "btn-light"} ms-auto`} onClick={handleSubmit} disabled={!form.content.trim()}>{loader ? <Loader color={theme ? "white" : "black"}/> : "Post"}</button>
 
             </div>
-            {/* <hr /> */}
+
 
         </>
     )
